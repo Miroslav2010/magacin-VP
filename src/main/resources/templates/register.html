@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div xmlns:th="http://www.thymeleaf.org" class="container">
+    <h1 th:if="${hasError}" th:text="${error}"></h1>
+</div>
+<div class="container">
+    <form method="post" action="/register">
+        <h2>Register</h2>
+        <p>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Username" required=""
+                   autofocus="">
+        </p>
+        <p>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Password"
+                   required="">
+        </p>
+        <p>
+            <label for="repeatedPassword">Repeat Password</label>
+            <input type="password" id="repeatedPassword" name="repeatedPassword" placeholder="Repeat Password" required="">
+        </p>
+        <p>
+        <div>
+            <input name="role" type="radio" id="ROLE_ADMIN" value="ROLE_ADMIN">
+            <label for="ROLE_ADMIN">ROLE_ADMIN</label>
+        </div>
+        <div>
+            <input name="role"  type="radio" id="ROLE_USER" value="ROLE_USER">
+            <label for="ROLE_USER">ROLE_USER</label>
+        </div>
+        </p>
+        <button type="submit">Sign up</button>
+    </form>
+    <a href="/login">Already have an account? Login here!</a>
+</div>
+
+</body>
+</html>
