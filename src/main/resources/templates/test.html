@@ -1,11 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Test</title>
 </head>
 <body>
 <h1>Test successful</h1>
+<table>
+    <tr>
+        <th>Item Name</th>
+        <th>Description</th>
+        <th>category</th>
+        <th>manufacturer</th>
+        <th>imageUrl</th>
+        <th>availability</th>
+        <th>Double price</th>
+    </tr>
+    <tr th:each="item: ${items}">
+        <td th:text="${item.name}">Item Name</td>
+        <td th:text="${item.description}">Description</td>
+        <td th:text="${item.category.name}">category</td>
+        <td th:text="${item.manufacturer.name}">manufacturer</td>
+        <td th:text="${item.imageUrl}">imageUrl</td>
+        <td th:text="${item.availability}">availability</td>
+        <td th:text="${item.price}">Double price</td>
+    </tr>
+</table>
 <a href="/logout">Logout</a>
 </body>
 </html>
