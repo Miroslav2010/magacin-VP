@@ -13,6 +13,12 @@ public class Item {
 
     String description;
 
+    String imageUrl;
+
+    Boolean availability;
+
+    Double price;
+
     @OneToMany(mappedBy = "item")
     List<EachItem> eachItemList;
 
@@ -25,10 +31,20 @@ public class Item {
     @ManyToOne
     Manufacturer manufacturer;
 
-    String imageUrl;
+    public Item() {
 
-    Boolean availability;
+    }
 
-    Double price;
+    public Item(String name, String description, String imageUrl, Boolean availability, Double price, List<EachItem> eachItemList, List<Warehouse> warehouses, Category category, Manufacturer manufacturer) {
+        this.name = name;
+        this.description = description;
+        this.imageUrl = imageUrl;
+        this.availability = availability;
+        this.price = price;
+        this.eachItemList = eachItemList;
+        this.warehouses = warehouses;
+        this.category = category;
+        this.manufacturer = manufacturer;
+    }
 
 }
