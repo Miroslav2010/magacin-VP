@@ -14,4 +14,12 @@ public class Order {
 
     @ManyToOne
     User user;
+
+    public Order(Long id, User user) {
+        this.id = id;
+        this.user = user;
+    }
+
+    public Order() {
+    }
 }

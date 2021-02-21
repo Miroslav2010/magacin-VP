@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface ItemService {
     List<Item> listAll();
-    Item findbyId(String name);
-    Item create(String name, String description, String imageUrl, Boolean availability, Double price, List<Long> eachItemIds, List<Long> warehousesIds, String categoryId, String manufacturerId);
-    Item update(String name, String description, String imageUrl, Boolean availability, Double price, List<Long> eachItemIds, List<Long> warehousesIds, String categoryId, String manufacturerId);
-    Item delete(String name);
+    Item findbyId(Long id);
+    Item create(String name, String description, String imageUrl, Boolean availability, Double price, List<Long> eachItemIds, List<Long> warehousesIds, Long categoryId, Long manufacturerId);
+    Item update(Long id, String name, String description, String imageUrl, Boolean availability, Double price, List<Long> eachItemIds, List<Long> warehousesIds, Long categoryId, Long manufacturerId);
+    Item delete(Long id);
 }

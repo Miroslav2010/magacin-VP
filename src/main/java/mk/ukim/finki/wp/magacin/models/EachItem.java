@@ -16,4 +16,12 @@ public class EachItem {
 
     @ManyToOne
     Item item;
+
+    public EachItem() {
+    }
+
+    public EachItem(Long id, Item item) {
+        this.id = id;
+        this.item = item;
+    }
 }

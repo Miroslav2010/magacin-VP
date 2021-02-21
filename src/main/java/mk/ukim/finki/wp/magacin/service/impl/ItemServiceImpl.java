@@ -32,12 +32,12 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Item findbyId(String name) {
-        return this.itemRepository.findById(name).orElseThrow(InvalidItemIdException::new);
+    public Item findbyId(Long id) {
+        return this.itemRepository.findById(id).orElseThrow(InvalidItemIdException::new);
     }
 
     @Override
-    public Item create(String name, String description, String imageUrl, Boolean availability, Double price, List<Long> eachItemIds, List<Long> warehousesIds, String categoryId, String manufacturerId) {
+    public Item create(String name, String description, String imageUrl, Boolean availability, Double price, List<Long> eachItemIds, List<Long> warehousesIds, Long categoryId, Long manufacturerId) {
         List<EachItem> eachItems = this.eachItemRepository.findAllById(eachItemIds);
         List<Warehouse> warehouses = this.warehouseRepository.findAllById(eachItemIds);
         Category category = this.categoryRepository.findById(categoryId).orElseThrow(InvalidCategoryIdException::new);
@@ -46,8 +46,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Item update(String name, String description, String imageUrl, Boolean availability, Double price, List<Long> eachItemIds, List<Long> warehousesIds, String categoryId, String manufacturerId) {
-        Item item = this.findbyId(name);
+    public Item update(Long id, String name, String description, String imageUrl, Boolean availability, Double price, List<Long> eachItemIds, List<Long> warehousesIds, Long categoryId, Long manufacturerId) {
+        Item item = this.findbyId(id);
         item.setName(name);
         item.setDescription(description);
         item.setImageUrl(imageUrl);
@@ -66,8 +66,8 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Item delete(String name) {
-        Item item = this.findbyId(name);
+    public Item delete(Long id) {
+        Item item = this.findbyId(id);
         this.itemRepository.delete(item);
         return item;
     }

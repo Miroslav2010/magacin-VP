@@ -9,6 +9,9 @@ import java.util.List;
 @Entity
 public class Item {
     @Id
+    @GeneratedValue
+    Long id;
+
     String name;
 
     String description;

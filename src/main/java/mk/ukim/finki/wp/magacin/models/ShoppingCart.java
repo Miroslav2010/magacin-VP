@@ -13,4 +13,12 @@ public class ShoppingCart {
 
     @OneToOne
     User user;
+
+    public ShoppingCart(Long id, User user) {
+        this.id = id;
+        this.user = user;
+    }
+
+    public ShoppingCart() {
+    }
 }
