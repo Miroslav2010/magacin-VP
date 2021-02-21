@@ -1,4 +1,4 @@
 package mk.ukim.finki.wp.magacin.service;
 
-public class ShoppingCartService {
+public interface ShoppingCartService {
 }

@@ -2,26 +2,26 @@ package mk.ukim.finki.wp.magacin.models;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Data
 @Entity
 public class EachItem {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     @ManyToOne
     Item item;
 
+    @ManyToOne
+    Warehouse warehouse;
+
     public EachItem() {
     }
 
-    public EachItem(Long id, Item item) {
-        this.id = id;
+    public EachItem(Item item, Warehouse warehouse) {
         this.item = item;
+        this.warehouse = warehouse;
     }
 }

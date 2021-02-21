@@ -31,7 +31,7 @@ public class UsersController {
             user = this.userService.login(request.getParameter("username"),
                     request.getParameter("password"));
             request.getSession().setAttribute("user", user);
-            return "redirect:/test";
+            return "redirect:/";
         }
         catch (InvalidUsernameOrPasswordException exception) {
             model.addAttribute("hasError", true);

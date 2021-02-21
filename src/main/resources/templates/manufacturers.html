@@ -1,0 +1,30 @@
+<div xmlns:th="http://www.thymeleaf.org" class="container mb-4">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">WEB PROGRAMMING SHOP</h1>
+            <h3 class="jumbotron-heading">Categories</h3>
+        </div>
+    </section>
+    <div class="row">
+        <div class="col-4">
+            <ul>
+                <li th:each="manufacturer: ${manufacturers}">
+                    <th:block th:text="${manufacturer.name}"/>
+                    <form th:action="@{'/categories/delete/{id}' (id=${manufacturer.getId()})}"
+                          th:method="DELETE">
+                        <button type="submit"
+                                class="btn btn-sm btn-danger delete-product">
+                            <i class="fa fa-trash">Delete</i>
+                        </button>
+                    </form>
+                </li>
+            </ul>
+
+            <h3>Add New Manufacturer</h3>
+            <form action="/categories/add" method="POST">
+                <label for='name'>Name:</label><input id='name' type='text' name='name'/>
+                <input type='submit' value='Submit'/>
+            </form>
+        </div>
+    </div>
+</div>

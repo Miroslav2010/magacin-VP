@@ -1,0 +1,54 @@
+
+<div xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">WEB PROGRAMMING SHOP</h1>
+            <h3 class="jumbotron-heading">All products</h3>
+        </div>
+    </section>
+
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col-12" th:if="${items.size() > 0}">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="tabela">
+                        <thead>
+                        <tr>
+                            <th scope="col">Product name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Manufacturer</th>
+                            <th scope="col">Category</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="product : ${items}" class="product">
+
+                            <td>
+                                <a th:href="@{'/products/{id}' (id=${product.getId()})}" class="btn btn-sm btn-info edit-product">
+                                    <div th:text="${product.getName()}"></div>
+                                </a>
+                            </td>
+                            <td th:text="${product.getPrice()}"></td>
+                            <td th:text="${product.getManufacturer() != null}
+                            ? ${product.getManufacturer().getName()} : 'No Manufacturer'"></td>
+                            <td th:text="${product.getCategory() != null}
+                            ? ${product.getCategory().getName()} : 'No Category'"></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <div class="col mb-3">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a href="/products/add-form" class="btn btn-block btn-dark add-product-btn">
+                            Add new product
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

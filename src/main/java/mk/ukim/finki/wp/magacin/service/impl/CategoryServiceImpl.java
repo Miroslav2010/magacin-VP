@@ -4,9 +4,11 @@ import mk.ukim.finki.wp.magacin.models.Category;
 import mk.ukim.finki.wp.magacin.models.exceptions.InvalidCategoryIdException;
 import mk.ukim.finki.wp.magacin.repository.CategoryRepository;
 import mk.ukim.finki.wp.magacin.service.CategoryService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;

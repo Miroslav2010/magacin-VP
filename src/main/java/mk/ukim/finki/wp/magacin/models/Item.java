@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 public class Item {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     String name;

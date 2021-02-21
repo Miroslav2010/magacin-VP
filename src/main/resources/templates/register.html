@@ -1,44 +1,52 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Register</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 </head>
 <body>
-<div xmlns:th="http://www.thymeleaf.org" class="container">
+<div class="container" xmlns:th="http://www.thymeleaf.org">
     <h1 th:if="${hasError}" th:text="${error}"></h1>
 </div>
 <div class="container">
-    <form method="post" action="/register">
-        <h2>Register</h2>
+    <form class="form-signin mt-xl-5" method="post" action="/register">
+        <h2 class="form-signin-heading">Register</h2>
         <p>
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" placeholder="Username" required=""
+            <label for="username" class="sr-only">Username</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="Username" required=""
                    autofocus="">
         </p>
         <p>
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" placeholder="Password"
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="Password"
                    required="">
         </p>
         <p>
-            <label for="repeatedPassword">Repeat Password</label>
-            <input type="password" id="repeatedPassword" name="repeatedPassword" placeholder="Repeat Password" required="">
+            <label for="repeatedPassword" class="sr-only">Repeat Password</label>
+            <input type="password" id="repeatedPassword" name="repeatedPassword" class="form-control"
+                   placeholder="Repeat Password" required="">
         </p>
         <p>
-        <div>
-            <input name="role" type="radio" id="ROLE_ADMIN" value="ROLE_ADMIN">
-            <label for="ROLE_ADMIN">ROLE_ADMIN</label>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" name="role" type="radio" id="ROLE_ADMIN" value="ROLE_ADMIN">
+            <label class="form-check-label" for="ROLE_ADMIN">ROLE_ADMIN</label>
         </div>
-        <div>
-            <input name="role"  type="radio" id="ROLE_USER" value="ROLE_USER">
-            <label for="ROLE_USER">ROLE_USER</label>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" name="role"  type="radio" id="ROLE_USER" value="ROLE_USER">
+            <label class="form-check-label" for="ROLE_USER">ROLE_USER</label>
         </div>
         </p>
-        <button type="submit">Sign up</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
     </form>
-    <a href="/login">Already have an account? Login here!</a>
+    <a href="/login" class="btn btn-block btn-light">Already have an account? Login here!</a>
 </div>
+
 
 </body>
 </html>

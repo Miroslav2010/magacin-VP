@@ -17,22 +17,23 @@ public class Warehouse {
 
     String location;
 
-    Long lat;
+    Double lat;
 
-    Long lon;
+    Double lon;
 
     @ManyToMany(mappedBy = "warehouses")
     List<Item> items;
 
+    @OneToMany(mappedBy = "warehouse")
+    List<EachItem> eachItems;
+
     public Warehouse() {
     }
 
-    public Warehouse(Long id, String name, String location, Long lat, Long lon, List<Item> items) {
-        this.id = id;
+    public Warehouse(String name, String location, Double lon, Double lat) {
         this.name = name;
         this.location = location;
         this.lat = lat;
         this.lon = lon;
-        this.items = items;
     }
 }

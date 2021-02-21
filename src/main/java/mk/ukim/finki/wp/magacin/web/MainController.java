@@ -19,13 +19,8 @@ public class MainController {
     }
 
     @GetMapping
-    public String showHome(){
-        return "homepage";
-    }
-    @GetMapping("/test")
-    public String test(Model model){
-        List<Item> items = this.itemService.listAll();
-        model.addAttribute("items", items);
-        return "test";
+    public String showHome(Model model){
+        model.addAttribute("bodyContent","homepage");
+        return "master-template";
     }
 }
