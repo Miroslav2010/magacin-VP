@@ -19,6 +19,7 @@ public class WarehouseController {
     public String getWarehouses(Model model){
         model.addAttribute("bodyContent","warehouses");
         model.addAttribute("warehouses",this.warehouseService.listAll());
+        model.addAttribute("displayWarehouses",this.warehouseService.listAllForDisplay());
         return "master-template";
     }
 }
