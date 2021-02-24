@@ -3,10 +3,7 @@ package mk.ukim.finki.wp.magacin.web;
 import mk.ukim.finki.wp.magacin.service.WarehouseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/warehouses")
@@ -25,8 +22,14 @@ public class WarehouseController {
         return "master-template";
     }
     @PostMapping("/add")
-    public String addNewCategory(@RequestParam String name,String location,Double lon,Double lat){
+    public String addNewWarehouse(@RequestParam String name,String location,Double lon,Double lat){
         this.warehouseService.create(name,location,lon,lat);
-        return "redirect:/categories";
+        return "redirect:/warehouses";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteManufacturer(@PathVariable Long id) {
+        this.warehouseService.delete(id);
+        return "redirect:/warehouses";
     }
 }
