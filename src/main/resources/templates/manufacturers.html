@@ -11,7 +11,7 @@
             <ul>
                 <li th:each="manufacturer: ${manufacturers}">
                     <th:block th:text="${manufacturer.name}"/>
-                    <form th:action="@{'/categories/delete/{id}' (id=${manufacturer.getId()})}"
+                    <form th:action="@{'/manufacturers/delete/{id}' (id=${manufacturer.getId()})}"
                           th:method="DELETE">
                         <button type="submit"
                                 class="btn btn-sm btn-danger delete-product">
