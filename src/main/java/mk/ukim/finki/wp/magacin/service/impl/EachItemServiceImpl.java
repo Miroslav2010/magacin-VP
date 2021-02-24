@@ -7,6 +7,8 @@ import mk.ukim.finki.wp.magacin.repository.EachItemRepository;
 import mk.ukim.finki.wp.magacin.service.EachItemService;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class EachItemServiceImpl implements EachItemService {
     private final EachItemRepository eachItemRepository;
@@ -17,8 +19,15 @@ public class EachItemServiceImpl implements EachItemService {
 
     @Override
     public void addItems(Integer quantity, Warehouse warehouse, Item item) {
-        for(int i=0;i<quantity;i++) {
-            this.eachItemRepository.save(new EachItem(item,warehouse));
+        Optional<EachItem> eachItem = this.eachItemRepository.findByItemAndWarehouse(item,warehouse);
+        if(eachItem.isPresent()){
+            EachItem em = eachItem.get();
+            em.setQuantity(em.getQuantity()+quantity);
+            this.eachItemRepository.save(em);
         }
+        else
+            this.eachItemRepository.save(new EachItem(item, warehouse, quantity));
     }
+
+
 }

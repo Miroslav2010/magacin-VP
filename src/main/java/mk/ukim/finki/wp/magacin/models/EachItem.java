@@ -7,6 +7,7 @@ import javax.persistence.*;
 @Data
 @Entity
 public class EachItem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
@@ -17,11 +18,16 @@ public class EachItem {
     @ManyToOne
     Warehouse warehouse;
 
+    Integer quantity;
+
     public EachItem() {
     }
 
-    public EachItem(Item item, Warehouse warehouse) {
+    public EachItem(Item item, Warehouse warehouse, Integer quantity) {
         this.item = item;
         this.warehouse = warehouse;
+        this.quantity = quantity;
     }
+
+
 }

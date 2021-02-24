@@ -3,6 +3,7 @@ package mk.ukim.finki.wp.magacin.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -14,8 +15,10 @@ public class ShoppingCart {
     @OneToOne
     User user;
 
-    public ShoppingCart(Long id, User user) {
-        this.id = id;
+    @ManyToMany
+    List<Item> items;
+
+    public ShoppingCart(User user) {
         this.user = user;
     }
 

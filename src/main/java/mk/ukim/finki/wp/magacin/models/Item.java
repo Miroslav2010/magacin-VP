@@ -3,6 +3,7 @@ package mk.ukim.finki.wp.magacin.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,27 +25,27 @@ public class Item {
     @OneToMany(mappedBy = "item")
     List<EachItem> eachItemList;
 
-    @ManyToMany
-    List<Warehouse> warehouses;
-
     @ManyToOne
     Category category;
 
     @ManyToOne
     Manufacturer manufacturer;
 
+    @ManyToMany(mappedBy = "items")
+    List<ShoppingCart> shoppingCarts;
+
+
     public Item() {
 
     }
 
-    public Item(String name, String description, String imageUrl, Boolean availability, Double price, List<EachItem> eachItemList, List<Warehouse> warehouses, Category category, Manufacturer manufacturer) {
+    public Item(String name, String description, String imageUrl, Boolean availability, Double price, List<EachItem> eachItemList, Category category, Manufacturer manufacturer) {
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
         this.availability = availability;
         this.price = price;
         this.eachItemList = eachItemList;
-        this.warehouses = warehouses;
         this.category = category;
         this.manufacturer = manufacturer;
     }
@@ -105,14 +106,6 @@ public class Item {
         this.eachItemList = eachItemList;
     }
 
-    public List<Warehouse> getWarehouses() {
-        return warehouses;
-    }
-
-    public void setWarehouses(List<Warehouse> warehouses) {
-        this.warehouses = warehouses;
-    }
-
     public Category getCategory() {
         return category;
     }
@@ -129,5 +122,13 @@ public class Item {
         this.manufacturer = manufacturer;
     }
 
+    public List<Warehouse> getWarehouses(){
+        List<Warehouse> warehouseList = new ArrayList<>();
+        for (EachItem item:eachItemList
+        ) {
+            warehouseList.add(item.getWarehouse());
+        }
+        return warehouseList;
+    }
 
 }

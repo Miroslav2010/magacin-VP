@@ -37,16 +37,15 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Item create(String name, String description, String imageUrl, Boolean availability, Double price, List<Long> eachItemIds, List<Long> warehousesIds, Long categoryId, Long manufacturerId) {
+    public Item create(String name, String description, String imageUrl, Boolean availability, Double price, List<Long> eachItemIds, Long categoryId, Long manufacturerId) {
         List<EachItem> eachItems = this.eachItemRepository.findAllById(eachItemIds);
-        List<Warehouse> warehouses = this.warehouseRepository.findAllById(eachItemIds);
         Category category = this.categoryRepository.findById(categoryId).orElseThrow(InvalidCategoryIdException::new);
         Manufacturer manufacturer = this.manufacturerRepository.findById(manufacturerId).orElseThrow(InvalidManufacturerIdException::new);
-        return this.itemRepository.save(new Item(name,description,imageUrl,availability,price,eachItems,warehouses,category,manufacturer));
+        return this.itemRepository.save(new Item(name,description,imageUrl,availability,price,eachItems,category,manufacturer));
     }
 
     @Override
-    public Item update(Long id, String name, String description, String imageUrl, Boolean availability, Double price, List<Long> eachItemIds, List<Long> warehousesIds, Long categoryId, Long manufacturerId) {
+    public Item update(Long id, String name, String description, String imageUrl, Boolean availability, Double price, List<Long> eachItemIds, Long categoryId, Long manufacturerId) {
         Item item = this.findbyId(id);
         item.setName(name);
         item.setDescription(description);
@@ -55,8 +54,6 @@ public class ItemServiceImpl implements ItemService {
         item.setPrice(price);
         List<EachItem> eachItems = this.eachItemRepository.findAllById(eachItemIds);
         item.setEachItemList(eachItems);
-        List<Warehouse> warehouses = this.warehouseRepository.findAllById(eachItemIds);
-        item.setWarehouses(warehouses);
         Category category = this.categoryRepository.findById(categoryId).orElseThrow(InvalidCategoryIdException::new);
         item.setCategory(category);
         Manufacturer manufacturer = this.manufacturerRepository.findById(manufacturerId).orElseThrow(InvalidManufacturerIdException::new);

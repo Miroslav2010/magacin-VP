@@ -20,9 +20,6 @@ public class Warehouse {
 
     Double lon;
 
-    @ManyToMany(mappedBy = "warehouses")
-    List<Item> items;
-
     @OneToMany(mappedBy = "warehouse")
     List<EachItem> eachItems;
 
@@ -74,14 +71,6 @@ public class Warehouse {
 
     public void setLon(Double lon) {
         this.lon = lon;
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
     }
 
     public List<EachItem> getEachItems() {
