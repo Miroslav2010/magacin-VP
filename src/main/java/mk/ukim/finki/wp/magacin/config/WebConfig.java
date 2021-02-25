@@ -20,7 +20,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/","/login","/register","/products/**","/warehouses/**", "/css/**","/js/**","/lib/**").permitAll()
-                .antMatchers("/shopping-cart/**").hasRole("USER")
+                .antMatchers("/shopping-cart/**","/orders/**").hasRole("USER")
                 .anyRequest().hasRole("ADMIN")
                 .and()
                 .formLogin()

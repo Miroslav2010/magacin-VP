@@ -24,7 +24,7 @@
                         <tr th:each="product : ${items}" class="product">
 
                             <td>
-                                <a th:href="@{'/products/{id}' (id=${product.getId()})}" class="btn btn-sm btn-info edit-product">
+                                <a th:href="@{'/items/{id}' (id=${product.getId()})}" class="btn btn-sm btn-info edit-product">
                                     <div th:text="${product.getName()}"></div>
                                 </a>
                             </td>
@@ -43,7 +43,7 @@
             <div class="col mb-3">
                 <div class="row">
                     <div class="col-sm-12 col-md-12" sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a href="/products/add-form" class="btn btn-block btn-dark add-product-btn">
+                        <a href="/items/add" class="btn btn-block btn-dark add-product-btn">
                             Add new product
                         </a>
                     </div>

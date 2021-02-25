@@ -39,13 +39,13 @@ public class Item {
 
     }
 
-    public Item(String name, String description, String imageUrl, Boolean availability, Double price, List<EachItem> eachItemList, Category category, Manufacturer manufacturer) {
+    public Item(String name, String description, String imageUrl, Boolean availability, Double price,  Category category, Manufacturer manufacturer) {
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
         this.availability = availability;
         this.price = price;
-        this.eachItemList = eachItemList;
+        this.eachItemList = new ArrayList<>();
         this.category = category;
         this.manufacturer = manufacturer;
     }

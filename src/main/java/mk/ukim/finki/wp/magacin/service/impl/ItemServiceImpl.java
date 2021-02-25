@@ -36,24 +36,22 @@ public class ItemServiceImpl implements ItemService {
         return this.itemRepository.findById(id).orElseThrow(InvalidItemIdException::new);
     }
 
+
     @Override
-    public Item create(String name, String description, String imageUrl, Boolean availability, Double price, List<Long> eachItemIds, Long categoryId, Long manufacturerId) {
-        List<EachItem> eachItems = this.eachItemRepository.findAllById(eachItemIds);
+    public Item create(String name, String description, String imageUrl, Boolean availability, Double price, Long categoryId, Long manufacturerId) {
         Category category = this.categoryRepository.findById(categoryId).orElseThrow(InvalidCategoryIdException::new);
         Manufacturer manufacturer = this.manufacturerRepository.findById(manufacturerId).orElseThrow(InvalidManufacturerIdException::new);
-        return this.itemRepository.save(new Item(name,description,imageUrl,availability,price,eachItems,category,manufacturer));
+        return this.itemRepository.save(new Item(name,description,imageUrl,availability,price,category,manufacturer));
     }
 
     @Override
-    public Item update(Long id, String name, String description, String imageUrl, Boolean availability, Double price, List<Long> eachItemIds, Long categoryId, Long manufacturerId) {
+    public Item update(Long id, String name, String description, String imageUrl, Boolean availability, Double price, Long categoryId, Long manufacturerId) {
         Item item = this.findbyId(id);
         item.setName(name);
         item.setDescription(description);
         item.setImageUrl(imageUrl);
         item.setAvailability(availability);
         item.setPrice(price);
-        List<EachItem> eachItems = this.eachItemRepository.findAllById(eachItemIds);
-        item.setEachItemList(eachItems);
         Category category = this.categoryRepository.findById(categoryId).orElseThrow(InvalidCategoryIdException::new);
         item.setCategory(category);
         Manufacturer manufacturer = this.manufacturerRepository.findById(manufacturerId).orElseThrow(InvalidManufacturerIdException::new);

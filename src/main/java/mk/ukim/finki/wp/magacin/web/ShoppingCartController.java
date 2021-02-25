@@ -38,11 +38,7 @@ public class ShoppingCartController {
         } catch (RuntimeException exception) {
             return "redirect:/shopping-cart?error=" + exception.getMessage();
         }
-
-
-
     }
-
     @DeleteMapping("/deleteitem/{id}/{itemid}")
     public String deleteItem(@PathVariable Long id, @PathVariable Long itemid){
         Item item = this.itemService.findbyId(itemid);

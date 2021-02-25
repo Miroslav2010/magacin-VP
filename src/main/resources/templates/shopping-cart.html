@@ -42,6 +42,13 @@
                         </tr>
                         </tbody>
                     </table>
+                    <form action="/orders/checkout"
+                          th:method="GET">
+                        <button type="submit"
+                                class="btn btn-sm btn-info">
+                            <i class="fa fa-trash">Checkout</i>
+                        </button>
+                    </form>
                     <form th:action="@{'/shopping-cart/delete/{id}' (id=${cart.getId()})}"
                           th:method="DELETE">
                         <button type="submit"

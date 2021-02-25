@@ -1,0 +1,87 @@
+<th:block xmlns:th="http://www.thymeleaf.org">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">MAGACIN VP</h1>
+            <h3 class="jumbotron-heading">Checkout</h3>
+        </div>
+    </section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <form action="/orders/checkout" method="POST">
+                    <input id="id" type="hidden" name="id" th:value="(${product} != null ? ${product.getId()} : '')">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text"
+                               class="form-control"
+                               id="firstName"
+                               name="firstName"
+                               required
+                               placeholder="Enter First Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text"
+                               class="form-control"
+                               id="lastName"
+                               name="lastName"
+                               required
+                               placeholder="Enter Last Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text"
+                               class="form-control"
+                               id="address"
+                               name="address"
+                               required
+                               placeholder="Enter Address">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text"
+                               class="form-control"
+                               id="email"
+                               name="email"
+                               required
+                               placeholder="Enter E-Mail">
+                    </div>
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <input type="text"
+                               class="form-control"
+                               id="country"
+                               name="country"
+                               required
+                               placeholder="Enter Country">
+                    </div>
+                    <div class="form-group">
+                        <label for="City">City</label>
+                        <input type="text"
+                               class="form-control"
+                               id="city"
+                               name="city"
+                               required
+                               placeholder="Enter City">
+                    </div>
+                    <div class="form-group">
+                        <label for="zipCode">Zip Code</label>
+                        <input type="text"
+                               class="form-control"
+                               id="zipCode"
+                               name="zipCode"
+                               required
+                               placeholder="Enter Zip Code">
+                    </div>
+                    <button id="submit" type="submit" class="btn btn-primary">Place Order</button>
+                    <a type="button" class="btn btn-primary" href="/products">Back</a>
+                </form>
+            </div>
+            <div class="col-md-5">
+                <h2 class="jumbotron-heading">Total Price:</h2>
+                <h4 class="jumbotron-heading" th:text="${totalPrice}"></h4>
+            </div>
+        </div>
+    </div>
+
+</th:block>

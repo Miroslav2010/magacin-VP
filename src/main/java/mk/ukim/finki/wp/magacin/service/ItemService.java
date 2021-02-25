@@ -10,7 +10,7 @@ import java.util.List;
 public interface ItemService {
     List<Item> listAll();
     Item findbyId(Long id);
-    Item create(String name, String description, String imageUrl, Boolean availability, Double price, List<Long> eachItemIds, Long categoryId, Long manufacturerId);
-    Item update(Long id, String name, String description, String imageUrl, Boolean availability, Double price, List<Long> eachItemIds, Long categoryId, Long manufacturerId);
+    Item create(String name, String description, String imageUrl, Boolean availability, Double price, Long categoryId, Long manufacturerId);
+    Item update(Long id, String name, String description, String imageUrl, Boolean availability, Double price, Long categoryId, Long manufacturerId);
     Item delete(Long id);
 }
