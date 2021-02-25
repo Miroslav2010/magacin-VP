@@ -3,6 +3,7 @@ package mk.ukim.finki.wp.magacin.models;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -20,6 +21,7 @@ public class ShoppingCart {
 
     public ShoppingCart(User user) {
         this.user = user;
+        items = new ArrayList<>();
     }
 
     public ShoppingCart() {

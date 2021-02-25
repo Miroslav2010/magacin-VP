@@ -42,6 +42,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     public ShoppingCart deleteAllItems(Long id) {
         ShoppingCart cart = this.shoppingCartRepository.findById(id).orElseThrow(InvalidShoppingCartIdException::new);
         cart.setItems(new ArrayList<>());
+        this.shoppingCartRepository.save(cart);
         return cart;
     }
 

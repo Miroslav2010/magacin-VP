@@ -1,6 +1,8 @@
 package mk.ukim.finki.wp.magacin.web;
 
+import mk.ukim.finki.wp.magacin.models.Item;
 import mk.ukim.finki.wp.magacin.models.ShoppingCart;
+import mk.ukim.finki.wp.magacin.service.ItemService;
 import mk.ukim.finki.wp.magacin.service.ShoppingCartService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,15 +14,18 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/shopping-cart")
 public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
+    private final ItemService itemService;
 
-    public ShoppingCartController(ShoppingCartService shoppingCartService) {
+    public ShoppingCartController(ShoppingCartService shoppingCartService, ItemService itemService) {
         this.shoppingCartService = shoppingCartService;
+        this.itemService = itemService;
     }
     @GetMapping
     public String showShoppingCarts(HttpServletRequest req, Model model){
         String username = req.getRemoteUser();
         ShoppingCart shoppingCart = this.shoppingCartService.getShoppingCart(username);
         model.addAttribute("products", this.shoppingCartService.listAllProductsInShoppingCart(shoppingCart.getId()));
+        model.addAttribute("cart",shoppingCart);
         model.addAttribute("bodyContent", "shopping-cart");
         return "master-template";
     }
@@ -38,9 +43,15 @@ public class ShoppingCartController {
 
     }
 
+    @DeleteMapping("/deleteitem/{id}/{itemid}")
+    public String deleteItem(@PathVariable Long id, @PathVariable Long itemid){
+        Item item = this.itemService.findbyId(itemid);
+        this.shoppingCartService.deleteItem(item,id);
+        return "redirect:/shopping-cart";
+    }
     @DeleteMapping("/delete/{id}")
     public String deleteCart(@PathVariable Long id) {
         this.shoppingCartService.deleteAllItems(id);
-        return "redirect:/";
+        return "redirect:/shopping-cart";
     }
 }

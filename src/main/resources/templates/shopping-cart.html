@@ -30,22 +30,25 @@
                             <td th:text="${product.getPrice()}"></td>
                             <td th:text="${product.getManufacturer() != null} ? ${product.getManufacturer().getName()} : 'No Manufacturer'"></td>
                             <td th:text="${product.getCategory() != null} ? ${product.getCategory().getName()} : 'No Category'"></td>
+                            <td>
+                                <form th:action="@{'/shopping-cart/deleteitem/{id}/{itemid}' (id=${cart.getId()},itemid=${product.getId()})}"
+                                      th:method="DELETE">
+                                    <button type="submit"
+                                            class="btn btn-sm btn-danger">
+                                        <i class="fa fa-trash">Delete</i>
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
-
-                    <ul>
-                        <li th:each="warehouse: ${shopping-cart}">
-                            <th:block th:text="${shopping-cart.getUser()}"/>
-                            <form th:action="@{'/shopping-cart/delete/{id}' (id=${shopping-cart.getId()})}"
-                                  th:method="DELETE">
-                                <button type="submit"
-                                        class="btn btn-sm btn-danger">
-                                    <i class="fa fa-trash">Clear Cart</i>
-                                </button>
-                            </form>
-                        </li>
-                    </ul>
+                    <form th:action="@{'/shopping-cart/delete/{id}' (id=${cart.getId()})}"
+                          th:method="DELETE">
+                        <button type="submit"
+                                class="btn btn-sm btn-danger">
+                            <i class="fa fa-trash">Clear Cart</i>
+                        </button>
+                    </form>
 
 
                 </div>
