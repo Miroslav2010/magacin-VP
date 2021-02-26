@@ -47,6 +47,6 @@ public class OrdersController {
         List<Item> items = cart.getItems();
         this.shoppingCartService.deleteAllItems(cart.getId());
         this.orderService.placeOrder(firstName,lastName,email,address,country,city,zipCode,items,request.getRemoteUser());
-        return null;
+        return "redirect:/";
     }
 }
