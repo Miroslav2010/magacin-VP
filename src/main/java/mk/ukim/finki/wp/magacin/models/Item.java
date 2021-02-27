@@ -124,6 +124,7 @@ public class Item {
         List<Warehouse> warehouseList = new ArrayList<>();
         for (EachItem item:eachItemList
         ) {
+            if(!warehouseList.contains(item.getWarehouse()))
             warehouseList.add(item.getWarehouse());
         }
         return warehouseList;
