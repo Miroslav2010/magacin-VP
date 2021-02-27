@@ -41,7 +41,9 @@ public class ItemServiceImpl implements ItemService {
     public Item create(String name, String description, String imageUrl, Boolean availability, Double price, Long categoryId, Long manufacturerId) {
         Category category = this.categoryRepository.findById(categoryId).orElseThrow(InvalidCategoryIdException::new);
         Manufacturer manufacturer = this.manufacturerRepository.findById(manufacturerId).orElseThrow(InvalidManufacturerIdException::new);
-        return this.itemRepository.save(new Item(name,description,imageUrl,availability,price,category,manufacturer));
+        Item item = new Item(name,description,imageUrl,availability,price,category,manufacturer);
+        this.itemRepository.save(item);
+        return item;
     }
 
     @Override
@@ -67,4 +69,11 @@ public class ItemServiceImpl implements ItemService {
         return item;
     }
 
+    @Override
+    public Item toggleAvailability(Long id) {
+        Item item = this.itemRepository.findById(id).orElseThrow(InvalidItemIdException::new);
+        item.setAvailability(!item.getAvailability());
+        this.itemRepository.save(item);
+        return item;
+    }
 }

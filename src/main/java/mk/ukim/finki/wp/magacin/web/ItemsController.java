@@ -53,7 +53,7 @@ public class ItemsController {
     public String addNewItem(@RequestParam String name, @RequestParam Double price,
                              @RequestParam String description, @RequestParam String imageUrl,
                              @RequestParam Long category, @RequestParam Long manufacturer){
-        this.itemService.create(name,description,imageUrl,true,price,category,manufacturer);
+        this.itemService.create(name,description,imageUrl,false,price,category,manufacturer);
         return "redirect:/items";
     }
 }

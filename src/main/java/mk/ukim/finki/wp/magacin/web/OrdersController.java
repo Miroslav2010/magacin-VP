@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -34,6 +35,7 @@ public class OrdersController {
                 items) {
             totalPrice+=item.getPrice();
         }
+        model.addAttribute("items",items);
         model.addAttribute("bodyContent","checkout");
         model.addAttribute("totalPrice",totalPrice);
         return "master-template";
@@ -45,8 +47,12 @@ public class OrdersController {
                                @RequestParam String zipCode, HttpServletRequest request){
         ShoppingCart cart = this.shoppingCartService.getShoppingCart(request.getRemoteUser());
         List<Item> items = cart.getItems();
+        List<Long> itemsList = new ArrayList<>();
+        for (Item item: items) {
+            itemsList.add(item.getId());
+        }
         this.shoppingCartService.deleteAllItems(cart.getId());
-        this.orderService.placeOrder(firstName,lastName,email,address,country,city,zipCode,items,request.getRemoteUser());
+        this.orderService.placeOrder(firstName,lastName,email,address,country,city,zipCode,itemsList,request.getRemoteUser());
         return "redirect:/";
     }
 }

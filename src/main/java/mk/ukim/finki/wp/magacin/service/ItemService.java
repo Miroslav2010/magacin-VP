@@ -13,4 +13,5 @@ public interface ItemService {
     Item create(String name, String description, String imageUrl, Boolean availability, Double price, Long categoryId, Long manufacturerId);
     Item update(Long id, String name, String description, String imageUrl, Boolean availability, Double price, Long categoryId, Long manufacturerId);
     Item delete(Long id);
+    Item toggleAvailability(Long id);
 }

@@ -78,6 +78,28 @@
                 </form>
             </div>
             <div class="col-md-5">
+                <table class="table table-striped" id="tabela">
+                    <thead>
+                    <tr>
+                        <th scope="col">Product name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Manufacturer</th>
+                        <th scope="col">Category</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product : ${items}" class="product">
+
+                        <td th:text="${product.getName()}"></td>
+                        <td th:text="${product.getPrice()}"></td>
+                        <td th:text="${product.getManufacturer() != null}
+                            ? ${product.getManufacturer().getName()} : 'No Manufacturer'"></td>
+                        <td th:text="${product.getCategory() != null}
+                            ? ${product.getCategory().getName()} : 'No Category'"></td>
+                    </tr>
+
+                    </tbody>
+                </table>
                 <h2 class="jumbotron-heading">Total Price:</h2>
                 <h4 class="jumbotron-heading" th:text="${totalPrice}"></h4>
             </div>

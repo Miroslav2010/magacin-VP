@@ -6,5 +6,5 @@ import mk.ukim.finki.wp.magacin.models.Order;
 import java.util.List;
 
 public interface OrderService {
-    Order placeOrder(String firstName, String lastName, String email, String address, String country, String city, String zipCode, List<Item> items, String username);
+    Order placeOrder(String firstName, String lastName, String email, String address, String country, String city, String zipCode, List<Long> items, String username);
 }
