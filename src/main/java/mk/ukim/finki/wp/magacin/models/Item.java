@@ -1,5 +1,7 @@
 package mk.ukim.finki.wp.magacin.models;
 
+import org.thymeleaf.standard.expression.Each;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -128,6 +130,14 @@ public class Item {
             warehouseList.add(item.getWarehouse());
         }
         return warehouseList;
+    }
+
+    public boolean checkAvailability(){
+        for (EachItem item: eachItemList){
+            if(item.quantity > 0)
+                return true;
+        }
+        return false;
     }
 
 }

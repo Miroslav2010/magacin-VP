@@ -34,12 +34,15 @@
                             <i class="fa fa-trash">Edit</i>
                         </a>
                     </th:block>
-                    <form th:action="@{'/shopping-cart/add-product/{id}' (id=${item.getId()})}"
+                    <form th:switch="${item.checkAvailability()}" th:action="@{'/shopping-cart/add-product/{id}' (id=${item.getId()})}"
                           th:method="POST"
                           sec:authorize="hasRole('ROLE_USER')">
-                        <button type="submit"
+                        <button th:case="true" type="submit"
                                 class="btn btn-sm btn-primary cart-product">
-                            <i class="fa fa-trash">Add product to cart</i>
+                            <i  class="fa fa-trash">Add product to cart</i>
+                        </button>
+                        <button th:case="false" disabled class="btn btn-sm btn-primary cart-product">
+                            <i  class="fa fa-trash">Add product to cart</i>
                         </button>
                     </form>
                 </div>
