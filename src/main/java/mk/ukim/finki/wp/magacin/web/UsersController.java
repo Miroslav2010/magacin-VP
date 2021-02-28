@@ -5,6 +5,7 @@ import mk.ukim.finki.wp.magacin.models.exceptions.InvalidUsernameOrPasswordExcep
 import mk.ukim.finki.wp.magacin.models.exceptions.PasswordsDoNotMatchException;
 import mk.ukim.finki.wp.magacin.models.exceptions.UsernameAlreadyExistsException;
 import mk.ukim.finki.wp.magacin.service.UserService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -66,6 +67,18 @@ public class UsersController {
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
         return "redirect:/";
+    }
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/userdetails")
+    public String getUserDetails(HttpServletRequest req, Model model){
+        model.addAttribute("user", this.userService.getUser(req.getRemoteUser()));
+        model.addAttribute("bodyContent", "userdetails");
+        return "master-template";
+    }
+    @PostMapping("/userdetails")
+    public String changeUserDetails(@RequestParam String username, @RequestParam(required = false) String password, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String address, @RequestParam String email, @RequestParam String city, @RequestParam String country, @RequestParam  String zipcode, @RequestParam String imageUrl){
+        this.userService.updateUser(username,password,firstName,lastName,address,email,city,country,zipcode,imageUrl);
+        return "redirect:/userdetails";
     }
 
 }

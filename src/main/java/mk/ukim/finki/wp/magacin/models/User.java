@@ -15,6 +15,14 @@ public class User {
     private String username;
     private String password;
     private String role;
+    private String firstName;
+    private String lastName;
+    private String address;
+    private String email;
+    private String city;
+    private String country;
+    private String zipcode;
+    private String imageUrl;
 
     @OneToMany(mappedBy = "user")
     List<Order> orders;

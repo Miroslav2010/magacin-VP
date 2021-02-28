@@ -19,7 +19,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/","/login","/register","/items/**","/warehouses/**","/search/**", "/css/**","/js/**","/lib/**").permitAll()
+                .antMatchers("/","/login","/register","/items/**","/warehouses/**","/search/**", "/css/**","/js/**","/lib/**","/userdetails/**").permitAll()
                 .antMatchers("/shopping-cart/**","/orders/**").hasRole("USER")
                 .anyRequest().hasRole("ADMIN")
                 .and()

@@ -55,4 +55,28 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 password).orElseThrow(InvalidUsernameOrPasswordException::new);
     }
 
+    @Override
+    public User updateUser(String username, String password, String firstName, String lastName, String address, String email, String city, String country, String zipcode, String imageUrl) {
+        User user = userRepository.findByUsername(username).orElseThrow(InvalidUsernameOrPasswordException::new);
+        if (passwordEncoder.matches(password, user.getPassword())) {
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setAddress(address);
+            user.setEmail(email);
+            user.setCity(city);
+            user.setEmail(email);
+            user.setCity(city);
+            user.setCountry(country);
+            user.setZipcode(zipcode);
+            user.setImageUrl(imageUrl);
+            this.userRepository.save(user);
+        }
+        return user;
+    }
+
+    @Override
+    public User getUser(String username) {
+        return this.userRepository.findById(username).orElseThrow(InvalidUsernameOrPasswordException::new);
+    }
+
 }
