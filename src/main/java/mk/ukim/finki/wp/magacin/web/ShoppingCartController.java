@@ -27,6 +27,7 @@ public class ShoppingCartController {
         model.addAttribute("products", this.shoppingCartService.listAllProductsInShoppingCart(shoppingCart.getId()));
         model.addAttribute("cart",shoppingCart);
         model.addAttribute("bodyContent", "shopping-cart");
+        model.addAttribute("itemNames", this.itemService.getItemNames());
         return "master-template";
     }
     @PostMapping("/add-product/{id}")

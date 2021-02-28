@@ -41,13 +41,26 @@
                         </form>
                     </li>
                 </ul>
+                <div class="container">
 
-                <h3>Add New Warehouse</h3>
-                <form action="/warehouses/add" method="POST">
-                    <label for='name'>Name:</label><input id='name' type='text' name='name'/>
+                    <h3>Add New Warehouse</h3>
 
-                    <input type='submit' value='Submit'/>
-                </form>
+                    <form action="/warehouses/add" method="POST">
+                        <div class="form-group">
+                            <label for='name'>Name:</label>
+                            <input class="form-control" id='name' type='text' name='name'/>
+                        </div>
+                        <div class="form-group">
+                            <label for='lat'>Latitude:</label>
+                            <input class="form-control" id='lat' type='text' name='name'/>
+                        </div>
+                        <div class="form-group">
+                            <label for='lon'>Longitude:</label>
+                            <input class="form-control" id='lon' type='text' name='name'/>
+                        </div>
+                        <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

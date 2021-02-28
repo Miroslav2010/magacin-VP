@@ -14,8 +14,6 @@ public class Warehouse {
 
     String name;
 
-    String location;
-
     Double lat;
 
     Double lon;
@@ -26,9 +24,8 @@ public class Warehouse {
     public Warehouse() {
     }
 
-    public Warehouse(String name, String location, Double lon, Double lat) {
+    public Warehouse(String name, Double lat, Double lon) {
         this.name = name;
-        this.location = location;
         this.lat = lat;
         this.lon = lon;
     }
@@ -47,14 +44,6 @@ public class Warehouse {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public Double getLat() {

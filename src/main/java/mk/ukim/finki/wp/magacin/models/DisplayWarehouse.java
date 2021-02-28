@@ -14,16 +14,14 @@ public class DisplayWarehouse {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String name;
-    String location;
     Double latitude;
     Double longitude;
 
     public DisplayWarehouse() {
     }
 
-    public DisplayWarehouse(String name, String location, Double latitude, Double longitude) {
+    public DisplayWarehouse(String name, Double latitude, Double longitude) {
         this.name = name;
-        this.location = location;
         this.latitude = latitude;
         this.longitude = longitude;
     }

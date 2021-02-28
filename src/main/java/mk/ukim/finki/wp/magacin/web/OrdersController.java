@@ -2,6 +2,7 @@ package mk.ukim.finki.wp.magacin.web;
 
 import mk.ukim.finki.wp.magacin.models.Item;
 import mk.ukim.finki.wp.magacin.models.ShoppingCart;
+import mk.ukim.finki.wp.magacin.service.ItemService;
 import mk.ukim.finki.wp.magacin.service.OrderService;
 import mk.ukim.finki.wp.magacin.service.ShoppingCartService;
 import org.springframework.stereotype.Controller;
@@ -20,10 +21,12 @@ import java.util.List;
 public class OrdersController {
     private final ShoppingCartService shoppingCartService;
     private final OrderService orderService;
+    private final ItemService itemService;
 
-    public OrdersController(ShoppingCartService shoppingCartService, OrderService orderService) {
+    public OrdersController(ShoppingCartService shoppingCartService, OrderService orderService, ItemService itemService) {
         this.shoppingCartService = shoppingCartService;
         this.orderService = orderService;
+        this.itemService = itemService;
     }
 
     @GetMapping("/checkout")
@@ -38,6 +41,7 @@ public class OrdersController {
         model.addAttribute("items",items);
         model.addAttribute("bodyContent","checkout");
         model.addAttribute("totalPrice",totalPrice);
+        model.addAttribute("itemNames", this.itemService.getItemNames());
         return "master-template";
     }
     @PostMapping("/checkout")

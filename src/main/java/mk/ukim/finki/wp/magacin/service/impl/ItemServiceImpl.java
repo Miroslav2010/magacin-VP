@@ -76,4 +76,14 @@ public class ItemServiceImpl implements ItemService {
         this.itemRepository.save(item);
         return item;
     }
+
+    @Override
+    public List<String> getItemNames() {
+        return this.itemRepository.getItemNames();
+    }
+
+    @Override
+    public List<Item> searchItemsByName(String search) {
+        return this.itemRepository.findAllByNameContains(search);
+    }
 }

@@ -1,8 +1,10 @@
 package mk.ukim.finki.wp.magacin.service.impl;
 
 import mk.ukim.finki.wp.magacin.models.Category;
+import mk.ukim.finki.wp.magacin.models.Item;
 import mk.ukim.finki.wp.magacin.models.exceptions.InvalidCategoryIdException;
 import mk.ukim.finki.wp.magacin.repository.CategoryRepository;
+import mk.ukim.finki.wp.magacin.repository.ItemRepository;
 import mk.ukim.finki.wp.magacin.service.CategoryService;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +14,11 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final ItemRepository itemRepository;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository, ItemRepository itemRepository) {
         this.categoryRepository = categoryRepository;
+        this.itemRepository = itemRepository;
     }
 
     @Override
@@ -42,6 +46,9 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category delete(Long id) {
         Category category = this.findbyId(id);
+        for (Item item : category.getItems()) {
+            this.itemRepository.delete(item);
+        }
         this.categoryRepository.delete(category);
         return category;
     }

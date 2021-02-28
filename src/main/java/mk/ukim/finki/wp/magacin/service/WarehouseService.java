@@ -10,7 +10,7 @@ public interface WarehouseService {
     List<Warehouse> listAll();
     List<DisplayWarehouse> listAllForDisplay();
     Warehouse findById(Long id);
-    Warehouse create(String name,String location,Double lon,Double lat);
-    Warehouse update(Long id,String name,String location,Double lon,Double lat);
+    Warehouse create(String name,Double lon,Double lat);
+    Warehouse update(Long id,String name,Double lon,Double lat);
     Warehouse delete(Long id);
 }

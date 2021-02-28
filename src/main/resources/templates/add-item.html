@@ -1,7 +1,7 @@
-<th:block xmlns:th="http://www.thymeleaf.org">
+<th:block xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <section class="jumbotron text-center">
         <div class="container">
-            <h1 class="jumbotron-heading">WEB PROGRAMMING SHOP</h1>
+            <h1 class="jumbotron-heading">MAGACIN VP</h1>
         </div>
     </section>
 
@@ -10,6 +10,7 @@
             <div class="col-md-5">
                 <form action="/items/add" method="POST">
                     <input id="id" type="hidden" name="id" th:value="(${item} != null ? ${item.getId()} : '')">
+                    <input id="availability" type="hidden" name="availability" th:value="(${item} != null ? ${item.getAvailability()} : '')">
                     <div class="form-group">
                         <label for="name">Item name</label>
                         <input type="text"

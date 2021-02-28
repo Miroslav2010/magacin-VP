@@ -28,6 +28,7 @@ public class StockController {
         model.addAttribute("items",this.itemService.listAll());
         model.addAttribute("bodyContent","stock");
         model.addAttribute("warehouses",this.warehouseService.listAll());
+        model.addAttribute("itemNames", this.itemService.getItemNames());
         return "master-template";
     }
     @PostMapping

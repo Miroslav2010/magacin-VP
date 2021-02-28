@@ -24,7 +24,7 @@
                         <tr th:each="product : ${items}" class="product">
 
                             <td>
-                                <a th:href="@{'/items/{id}' (id=${product.getId()})}" class="btn btn-sm btn-info edit-product">
+                                <a th:href="@{'/items/{id}' (id=${product.getId()})}">
                                     <div th:text="${product.getName()}"></div>
                                 </a>
                             </td>
@@ -34,10 +34,13 @@
                             <td th:text="${product.getCategory() != null}
                             ? ${product.getCategory().getName()} : 'No Category'"></td>
                         </tr>
-
                         </tbody>
                     </table>
-
+                    <script th:inline="javascript">
+                        $(document).ready( function () {
+                            $('#tabela').DataTable();
+                        } );
+                    </script>
                 </div>
             </div>
             <div class="col mb-3">

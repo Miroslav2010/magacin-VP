@@ -21,11 +21,15 @@
                 </li>
             </ul>
 
+            <div class="container">
             <h3>Add New Manufacturer</h3>
             <form action="/manufacturers/add" method="POST">
-                <label for='name'>Name:</label><input id='name' type='text' name='name'/>
-                <input type='submit' value='Submit'/>
+                <div class="form-group">
+                <label for='name'>Name:</label><input class="form-control" id='name' type='text' name='name'/>
+                <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                </div>
             </form>
+            </div>
         </div>
     </div>
     </div>
