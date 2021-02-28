@@ -132,6 +132,7 @@ public class Item {
         return warehouseList;
     }
 
+
     public boolean checkAvailability(){
         for (EachItem item: eachItemList){
             if(item.quantity > 0)

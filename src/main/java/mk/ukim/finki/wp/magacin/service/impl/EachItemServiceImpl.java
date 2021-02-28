@@ -46,11 +46,15 @@ public class EachItemServiceImpl implements EachItemService {
         EachItem item = eachItem.get();
         int quantity = item.getQuantity();
         quantity--;
-        item.setQuantity(quantity);
-        this.eachItemRepository.save(item);
+
         if(quantity==0){
             this.itemService.toggleAvailability(item.getItem().getId());
             this.eachItemRepository.deleteById(item.getId());
+            return false;
+        }
+        else{
+            item.setQuantity(quantity);
+            this.eachItemRepository.save(item);
         }
         return true;
     }

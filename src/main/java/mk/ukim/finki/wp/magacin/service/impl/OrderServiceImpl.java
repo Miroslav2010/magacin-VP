@@ -43,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
             List<EachItem> list = item.getEachItemList();
             boolean tmp = this.eachItemService.lowerQuantity(list.get(list.size()-1).getId());
             if(!tmp){
-                list.remove(item);
+                list.remove(list.get(list.size()-1)); //in case something breaks old was list.remove(item)
             }
         }
         Order order = new Order(this.userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new),
