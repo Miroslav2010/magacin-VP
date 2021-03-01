@@ -24,6 +24,9 @@
                     <li class="nav-item m-auto" sec:authorize="hasRole('ROLE_ADMIN')">
                         <a class="nav-link active" href="/stock">Add new stock</a>
                     </li>
+                    <li class="nav-item m-auto" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link active" href="/orders">Orders</a>
+                    </li>
                 </ul>
 
                 <script th:inline="javascript">

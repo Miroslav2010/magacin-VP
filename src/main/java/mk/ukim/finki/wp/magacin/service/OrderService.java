@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface OrderService {
     Order placeOrder(String firstName, String lastName, String email, String address, String country, String city, String zipCode, List<Long> items, String username);
+    List<Order> listAll();
 }

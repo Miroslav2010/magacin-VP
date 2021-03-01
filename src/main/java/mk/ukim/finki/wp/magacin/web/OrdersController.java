@@ -5,6 +5,7 @@ import mk.ukim.finki.wp.magacin.models.ShoppingCart;
 import mk.ukim.finki.wp.magacin.service.ItemService;
 import mk.ukim.finki.wp.magacin.service.OrderService;
 import mk.ukim.finki.wp.magacin.service.ShoppingCartService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,5 +59,12 @@ public class OrdersController {
         this.shoppingCartService.deleteAllItems(cart.getId());
         this.orderService.placeOrder(firstName,lastName,email,address,country,city,zipCode,itemsList,request.getRemoteUser());
         return "redirect:/";
+    }
+    @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String showOrders(Model model){
+        model.addAttribute("orders", this.orderService.listAll());
+        model.addAttribute("bodyContent", "orders");
+        return "master-template";
     }
 }
