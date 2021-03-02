@@ -18,6 +18,7 @@
                             <th scope="col">Price</th>
                             <th scope="col">Manufacturer</th>
                             <th scope="col">Category</th>
+                            <th scope="col">Availability</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -33,6 +34,7 @@
                             ? ${product.getManufacturer().getName()} : 'No Manufacturer'"></td>
                             <td th:text="${product.getCategory() != null}
                             ? ${product.getCategory().getName()} : 'No Category'"></td>
+                            <td th:text="${product.getAvailability()}"></td>
                         </tr>
                         </tbody>
                     </table>
