@@ -86,4 +86,26 @@ public class ItemServiceImpl implements ItemService {
     public List<Item> searchItemsByName(String search) {
         return this.itemRepository.findAllByNameContains(search);
     }
+
+    @Override
+    public List<Item> getItemsByCategoryManufacturerAndAvailability(Long categoryId, Long manufacturerId, Boolean availability) {
+        if(categoryId!=null && manufacturerId == null && availability!=null && availability==false){
+            return this.itemRepository.findAllByCategory(this.categoryRepository.findById(categoryId).orElseThrow(InvalidCategoryIdException::new));
+        }else if(categoryId==null && manufacturerId!=null && availability!=null && availability==false){
+            return this.itemRepository.findAllByManufacturer(this.manufacturerRepository.findById(manufacturerId).orElseThrow(InvalidManufacturerIdException::new));
+        }else if(categoryId!=null && manufacturerId!=null && availability!=null && availability==false){
+            return  this.itemRepository.findAllByCategoryAndManufacturer(this.categoryRepository.findById(categoryId).orElseThrow(InvalidCategoryIdException::new),
+                    this.manufacturerRepository.findById(manufacturerId).orElseThrow(InvalidManufacturerIdException::new));
+        }else if(categoryId!=null && manufacturerId!=null && availability!=null && availability==true){
+            return this.itemRepository.findAllByCategoryAndManufacturerAndAvailability(this.categoryRepository.findById(categoryId).orElseThrow(InvalidCategoryIdException::new)
+            ,this.manufacturerRepository.findById(manufacturerId).orElseThrow(InvalidManufacturerIdException::new),true);
+        }else if(categoryId==null && manufacturerId==null && availability!=null && availability==true){
+            return this.itemRepository.findAllByAvailability(true);
+        }else if(categoryId!=null && manufacturerId == null && availability!=null && availability==true){
+            return this.itemRepository.findAllByCategoryAndAvailability(this.categoryRepository.findById(categoryId).orElseThrow(InvalidCategoryIdException::new),true);
+        }else if(categoryId==null && manufacturerId!=null && availability!=null && availability==true){
+            return this.itemRepository.findAllByManufacturerAndAvailability(this.manufacturerRepository.findById(manufacturerId).orElseThrow(InvalidManufacturerIdException::new),true);
+        }
+        return this.itemRepository.findAll();
+    }
 }

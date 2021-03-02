@@ -16,4 +16,5 @@ public interface ItemService {
     Item toggleAvailability(Long id);
     List<String> getItemNames();
     List<Item> searchItemsByName(String search);
+    List<Item> getItemsByCategoryManufacturerAndAvailability(Long categoryId,Long manufacturerId,Boolean availability);
 }

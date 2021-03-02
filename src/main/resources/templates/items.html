@@ -9,6 +9,39 @@
 
     <div class="container mb-4">
         <div class="row">
+            <div class="col-12">
+                <form method="get" action="/items">
+                    <div class="row">
+                    <div class="form-group col-3">
+                    <select class="form-control" name="category">
+                        <option value="">All categories</option>
+                        <option th:each="category: ${categories}" th:value="${category.getId()}" th:text="${category.getName()}"></option>
+                    </select>
+                    </div>
+                    <div class="form-group col-3">
+                    <select class="form-control" name="manufacturer">
+                        <option value="">All manufacturers</option>
+                        <option th:each="manufacturer: ${manufacturers}" th:value="${manufacturer.getId()}" th:text="${manufacturer.getName()}"></option>
+                    </select>
+                    </div>
+                    <div class="col-3" style="margin: auto">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" id="true" name="availability" value="true">
+                            <label class="form-check-label" for="true">Available</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" checked id="false" type="radio" name="availability" value="false">
+                            <label class="form-check-label" for="false">All</label>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <button class="btn btn-primary" type="submit">Filter</button>
+                    </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-12" th:if="${items.size() > 0}">
                 <div class="table-responsive">
                     <table class="table table-striped" id="tabela">
@@ -38,6 +71,7 @@
                         </tr>
                         </tbody>
                     </table>
+
                     <script th:inline="javascript">
                         $(document).ready( function () {
                             $('#tabela').DataTable();

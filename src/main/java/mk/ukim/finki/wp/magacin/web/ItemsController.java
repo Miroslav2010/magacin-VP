@@ -23,13 +23,18 @@ public class ItemsController {
     }
 
     @GetMapping
-    public String getProducts(@RequestParam(required = false) String search, Model model){
+    public String getProducts(@RequestParam(required = false) String search, @RequestParam(required = false) Long category,
+                              @RequestParam(required = false) Long manufacturer,
+                              @RequestParam(required = false) Boolean availability,
+                              Model model){
         if(search != null && !search.isEmpty()){
             model.addAttribute("items",this.itemService.searchItemsByName(search));
         }else{
-            model.addAttribute("items",this.itemService.listAll());
+            model.addAttribute("items",this.itemService.getItemsByCategoryManufacturerAndAvailability(category,manufacturer,availability));
         }
         model.addAttribute("bodyContent","items");
+        model.addAttribute("categories",this.categoryService.listAll());
+        model.addAttribute("manufacturers",this.manufacturerService.listAll());
         model.addAttribute("itemNames", this.itemService.getItemNames());
         return "master-template";
     }
