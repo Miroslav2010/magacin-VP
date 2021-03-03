@@ -3,7 +3,9 @@ package mk.ukim.finki.wp.magacin.service.impl;
 import mk.ukim.finki.wp.magacin.models.EachItem;
 import mk.ukim.finki.wp.magacin.models.Item;
 import mk.ukim.finki.wp.magacin.models.Order;
+import mk.ukim.finki.wp.magacin.models.enumerations.OrderStatus;
 import mk.ukim.finki.wp.magacin.models.exceptions.InvalidItemIdException;
+import mk.ukim.finki.wp.magacin.models.exceptions.InvalidOrderIdException;
 import mk.ukim.finki.wp.magacin.models.exceptions.UserNotFoundException;
 import mk.ukim.finki.wp.magacin.repository.ItemRepository;
 import mk.ukim.finki.wp.magacin.repository.OrderRepository;
@@ -50,6 +52,32 @@ public class OrderServiceImpl implements OrderService {
                 this.itemRepository.findAllById(items),firstName,lastName,email,address,country,city,zipCode);
         this.orderRepository.save(order);
         return order;
+    }
+
+    @Override
+    public void updateOrder(Long id, String firstName, String lastName, String address, String email, String city, String country, String zipcode, OrderStatus status) {
+       Order order = this.findById(id);
+       order.setFirstName(firstName);
+       order.setLastName(lastName);
+       order.setAddress(address);
+       order.setEmail(email);
+       order.setCity(city);
+       order.setCountry(country);
+       order.setZipCode(zipcode);
+       order.setStatus(status);
+       this.orderRepository.save(order);
+    }
+
+    @Override
+    public Order delete(Long id) {
+        Order order = this.findById(id);
+        this.orderRepository.delete(order);
+        return order;
+    }
+
+    @Override
+    public Order findById(Long id) {
+        return this.orderRepository.findById(id).orElseThrow(InvalidOrderIdException::new);
     }
 
     @Override

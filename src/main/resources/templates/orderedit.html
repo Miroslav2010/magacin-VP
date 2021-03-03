@@ -1,0 +1,120 @@
+<div xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">MAGACIN VP</h1>
+            <h3 class="jumbotron-heading">
+                <th:block th:text="${'Order ID: ' + order?.getId()}"></th:block>
+            </h3>
+        </div>
+    </section>
+    <div class="container mb-4">
+        <div class="row">
+            <form method="POST">
+                <input type="hidden" name="id"  th:value="${order.getId()}">
+                <div class="form-group">
+                    <label for="username">username</label>
+                    <input type="text"
+                           class="form-control"
+                           id="username"
+                           name="username"
+                           th:value="${order?.getUser().getUsername()}"
+                           required
+                           disabled>
+                </div>
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text"
+                           class="form-control"
+                           id="firstName"
+                           name="firstName"
+                           th:value="${order?.getFirstName()}"
+                           required
+                           placeholder="Last Name">
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text"
+                           class="form-control"
+                           id="lastName"
+                           name="lastName"
+                           th:value="${order?.getLastName()}"
+                           required
+                           placeholder="Last Name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text"
+                           class="form-control"
+                           id="email"
+                           name="email"
+                           th:value="${order?.getEmail()}"
+                           required
+                           placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text"
+                           class="form-control"
+                           id="address"
+                           name="address"
+                           th:value="${order?.getAddress()}"
+                           required
+                           placeholder="Address">
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text"
+                           class="form-control"
+                           id="city"
+                           name="city"
+                           th:value="${order?.getCity()}"
+                           required
+                           placeholder="City">
+                </div>
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <input type="text"
+                           class="form-control"
+                           id="country"
+                           name="country"
+                           th:value="${order?.getCountry()}"
+                           required
+                           placeholder="Country">
+                </div>
+                <div class="form-group">
+                    <label for="zipcode">Zip Code</label>
+                    <input type="text"
+                           class="form-control"
+                           id="zipcode"
+                           name="zipcode"
+                           th:value="${order?.getZipCode()}"
+                           required
+                           placeholder="Zipcode">
+                </div>
+                <div style="width: 50%">
+                    <p>Ordered items:</p>
+                    <ul>
+                        <li th:each="orderItem: ${order.getItems()}" th:text="${orderItem.getName()}"></li>
+                    </ul>
+                </div>
+                <div>
+                    <label>Order Status</label><br/>
+                    <select id="status" name="status">
+                        <option th:each="status: ${orderStatuses}" th:value="${status}" th:text="${status}" th:selected="${order?.status?.equals(status)}"> [type.name]</option>
+                    </select>
+                </div>
+                <br>
+                <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                <a type="button" class="btn btn-primary" href="/orders">Cancel</a>
+                </form>
+                <form style="margin-top: 850px; margin-left: -50px" th:action="@{'/orders/delete/{id}' (id=${order.getId()})}"
+                      th:method="DELETE">
+                    <button type="submit"
+                            class="btn btn-sm btn-danger delete-product">
+                        <i class="fa fa-trash">Delete</i>
+                    </button>
+                </form>
+
+        </div>
+    </div>
+</div>

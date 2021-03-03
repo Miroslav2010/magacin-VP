@@ -21,8 +21,8 @@
                                 <th scope="col">Country</th>
                                 <th scope="col">Zipcode</th>
                                 <th scope="col">Email</th>
-                                <!--<th scope="col">Status</th>
-                                <th scope="col">Actions</th> -->
+                                <th scope="col">Status</th>
+                                <th scope="col">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -41,18 +41,11 @@
                                 <td th:text="${order.getCountry()}"></td>
                                 <td th:text="${order.getZipCode()}"></td>
                                 <td th:text="${order.getEmail()}"></td>
-                                <!--<td th:text="TODO ENUM"></td>
-                                <form th:action="" th:method="POST">
-                                    <button th:case="true" type="submit"
-                                            class="btn btn-sm btn-primary cart-product">
-                                        <i  class="fa fa-trash">Shipped</i>
-                                    </button>
-                                    <button th:case="false" disabled class="btn btn-sm btn-primary cart-product">
-                                        <i  class="fa fa-trash">Delivered</i>
-                                    </button>
-                                </form> -->
-
-
+                                <td th:text="${order.getStatus()}"></td>
+                                <td style="max-width: 60px"><a th:href="@{'/orders/edit/{id}' (id=${order.getId()})}"
+                                   class="btn btn-sm btn-info edit-product">
+                                    <i class="fa fa-trash">Edit</i>
+                                </a></td>
                             </tr>
                             </tbody>
                         </table>

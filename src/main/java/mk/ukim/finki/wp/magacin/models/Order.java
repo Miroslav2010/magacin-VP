@@ -1,6 +1,7 @@
 package mk.ukim.finki.wp.magacin.models;
 
 import lombok.Data;
+import mk.ukim.finki.wp.magacin.models.enumerations.OrderStatus;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -34,6 +35,8 @@ public class Order {
 
     String zipCode;
 
+    OrderStatus status;
+
     public Order(User user, List<Item> items, String firstName, String lastName, String email, String address, String country, String city, String zipCode) {
         this.user = user;
         this.items = items;
@@ -44,6 +47,7 @@ public class Order {
         this.country = country;
         this.city = city;
         this.zipCode = zipCode;
+        this.status = OrderStatus.PENDING;
     }
 
     public Order() {
