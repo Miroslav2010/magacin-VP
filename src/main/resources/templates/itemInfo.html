@@ -39,10 +39,10 @@
                           sec:authorize="hasRole('ROLE_USER')">
                         <button th:case="true" type="submit"
                                 class="btn btn-sm btn-primary cart-product">
-                            <i  class="fa fa-trash">Add product to cart</i>
+                            <i  class="fas fa-shopping-cart pr-2">Add product to cart</i>
                         </button>
                         <button th:case="false" disabled class="btn btn-sm btn-primary cart-product">
-                            <i  class="fa fa-trash">Add product to cart</i>
+                            <i  class="fas fa-shopping-cart pr-2">Add product to cart</i>
                         </button>
                     </form>
                 </div>

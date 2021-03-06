@@ -11,7 +11,8 @@
     <div class="container mb-4">
         <div class="row">
             <form method="POST">
-                <div class="form-group">
+                <div class="row">
+                <div class="form-group col-4">
                     <label for="firstName">First Name</label>
                     <input type="text"
                            class="form-control"
@@ -21,7 +22,7 @@
                            required
                            placeholder="First Name">
                 </div>
-                <div class="form-group">
+                <div class="form-group col-4">
                     <label for="lastName">Last Name</label>
                     <input type="text"
                            class="form-control"
@@ -31,7 +32,7 @@
                            required
                            placeholder="Last Name">
                 </div>
-                <div class="form-group">
+                <div class="form-group col-4">
                     <label for="email">Email</label>
                     <input type="text"
                            class="form-control"
@@ -41,7 +42,7 @@
                            required
                            placeholder="Email">
                 </div>
-                <div class="form-group">
+                <div class="form-group  col-4">
                     <label for="address">Address</label>
                     <input type="text"
                            class="form-control"
@@ -51,7 +52,7 @@
                            required
                            placeholder="Address">
                 </div>
-                <div class="form-group">
+                <div class="form-group col-4">
                     <label for="city">City</label>
                     <input type="text"
                            class="form-control"
@@ -61,7 +62,7 @@
                            required
                            placeholder="City">
                 </div>
-                <div class="form-group">
+                <div class="form-group col-4">
                     <label for="imageUrl">User Image URL</label>
                     <input type="text"
                            class="form-control"
@@ -71,7 +72,7 @@
                            required
                            placeholder="URL">
                 </div>
-                <div class="form-group">
+                <div class="form-group col-4">
                     <label for="country">Country</label>
                     <input type="text"
                            class="form-control"
@@ -81,7 +82,7 @@
                            required
                            placeholder="Country">
                 </div>
-                <div class="form-group">
+                <div class="form-group col-4">
                     <label for="zipcode">Zip Code</label>
                     <input type="text"
                            class="form-control"
@@ -91,13 +92,14 @@
                            required
                            placeholder="Zipcode">
                 </div>
-                <div class="form-group">
+                <div class="form-group col-4">
                     <label for="password">Confirm your password</label>
                     <input type="password"
                            class="form-control"
                            id="password"
                            name="password"
                            placeholder="">
+                </div>
                 </div>
                 <input type="hidden" name="username"  th:value="${user?.getUsername()}">
                 <button id="submit" type="submit" class="btn btn-primary">Submit</button>

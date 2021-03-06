@@ -1,32 +1,44 @@
 <header xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="/">MAGACIN VP</a>
+            <a class="navbar-brand mb-0 h1" href="/">MAGACIN VP</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
                     aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
-                <ul class="navbar-nav m-auto">
-                    <li class="nav-item m-auto">
-                        <a class="nav-link active" href="/items">Products</a>
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item mr-auto">
+                        <a class="nav-link" href="/items">Products</a>
                     </li>
-                    <li class="nav-item m-auto">
-                        <a class="nav-link active" href="/warehouses">Warehouses</a>
+                    <li class="nav-item mr-auto">
+                        <a class="nav-link" href="/warehouses">Warehouses</a>
                     </li>
-                    <li class="nav-item m-auto" sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="nav-link active" href="/categories">Categories</a>
+                    <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Admin controls
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/categories">Categories</a>
+                            <a class="dropdown-item" href="/manufacturers">Manufacturers</a>
+                            <a class="dropdown-item" href="/orders">Orders</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/stock">Add new stock</a>
+                        </div>
                     </li>
-                    <li class="nav-item m-auto" sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="nav-link active" href="/manufacturers">Manufacturers</a>
+                    <!--<li class="nav-item mr-auto" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" href="/categories">Categories</a>
                     </li>
-                    <li class="nav-item m-auto" sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="nav-link active" href="/stock">Add new stock</a>
+                    <li class="nav-item mr-auto" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" href="/manufacturers">Manufacturers</a>
                     </li>
-                    <li class="nav-item m-auto" sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="nav-link active" href="/orders">Orders</a>
+                    <li class="nav-item mr-auto" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" href="/stock">Add new stock</a>
                     </li>
+                    <li class="nav-item mr-auto" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" href="/orders">Orders</a>
+                    </li>-->
                 </ul>
 
                 <script th:inline="javascript">
@@ -41,13 +53,13 @@
 
                 <form method="GET" action="/items" class="form-inline my-2 my-lg-0">
                     <div class="input-group input-group-sm">
-                        <input id="search" type="text" class="form-control" name="search" aria-label="Small"
+                        <input id="search" type="search" class="form-control" name="search" aria-label="Small"
                                aria-describedby="inputGroup-sizing-sm"
                                placeholder="Search...">
                         <div class="input-group-append">
-                            <button type="submit" class="btn btn-secondary btn-number">
-                                <i class="fa fa-search">Search</i>
-                            </button>
+                        <button type="submit" class="btn btn-outline-warning">
+                            <i class="fa fa-search">Search</i>
+                        </button>
                         </div>
                     </div>
                 </form>
@@ -59,18 +71,18 @@
                                       th:text="${#request.getRemoteUser()}"></th:block>
                         </a>
                     </li>
-                    <li class="nav-item" sec:authorize="hasRole('ROLE_USER')">
-                        <a class="btn btn-success btn-sm ml-3" href="/shopping-cart">
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_USER')" style="margin: auto">
+                        <a class="btn btn-outline-success btn-sm ml-3" href="/shopping-cart">
                             <i class="fa fa-shopping-cart"></i> Cart
                         </a>
                     </li>
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a class="btn btn-light btn-sm ml-3" href="/logout">
+                    <li class="nav-item" sec:authorize="isAuthenticated()" style="margin: auto">
+                        <a class="btn btn-outline-danger btn-sm ml-3" href="/logout">
                             <i class="fa fa-shopping-cart"></i> Logout
                         </a>
                     </li>
-                    <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="btn btn-light btn-sm ml-3" href="/login">
+                    <li class="nav-item" sec:authorize="!isAuthenticated()" style="margin: auto">
+                        <a class="btn btn-outline-primary btn-sm ml-3" href="/login">
                             <i class="fa fa-shopping-cart"></i> Login
                         </a>
                     </li>
