@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User updateUser(String username, String password, String firstName, String lastName, String address, String email, String city, String country, String zipcode, String imageUrl) {
+    public User updateUser(String username, String password, String firstName, String lastName, String address, String email, String city, String country, String zipcode) {
         User user = userRepository.findByUsername(username).orElseThrow(InvalidUsernameOrPasswordException::new);
         if (passwordEncoder.matches(password, user.getPassword())) {
             user.setFirstName(firstName);
@@ -68,7 +68,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user.setCity(city);
             user.setCountry(country);
             user.setZipcode(zipcode);
-            user.setImageUrl(imageUrl);
             this.userRepository.save(user);
         }
         return user;

@@ -8,10 +8,10 @@
     <div class="container">
     <div class="row">
         <div class="col-4">
-            <ul>
-                <li th:each="category: ${categories}">
-                    <th:block th:text="${category.name}"/>
-                    <form th:action="@{'/categories/delete/{id}' (id=${category.getId()})}"
+            <ul class="list-group">
+                <li class="list-group-item" th:each="category: ${categories}">
+                    <th:block style="display:inline" th:text="${category.name}"/>
+                    <form style="display: inline" th:action="@{'/categories/delete/{id}' (id=${category.getId()})}"
                           th:method="DELETE">
                         <button type="submit"
                                 class="btn btn-sm btn-danger delete-product">

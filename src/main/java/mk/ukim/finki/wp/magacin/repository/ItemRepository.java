@@ -21,4 +21,5 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findAllByAvailability(Boolean availability);
     List<Item> findAllByCategoryAndAvailability(Category category,Boolean availability);
     List<Item> findAllByManufacturerAndAvailability(Manufacturer manufacturer,Boolean availability);
+    List<Item> findFirst3ByOrderById();
 }

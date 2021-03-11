@@ -17,4 +17,5 @@ public interface ItemService {
     List<String> getItemNames();
     List<Item> searchItemsByName(String search);
     List<Item> getItemsByCategoryManufacturerAndAvailability(Long categoryId,Long manufacturerId,Boolean availability);
+    List<Item> findFirstThree();
 }

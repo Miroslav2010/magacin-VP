@@ -5,7 +5,6 @@
             <h3 class="jumbotron-heading">
                 <th:block th:if="${#request.getRemoteUser() != null}" th:text="${#request.getRemoteUser()}"></th:block>
             </h3>
-            <img style="max-height: 80%;max-width: 80%" th:src="${user.getImageUrl()}">
         </div>
     </section>
     <div class="container mb-4">
@@ -19,7 +18,6 @@
                            id="firstName"
                            name="firstName"
                            th:value="${user?.getFirstName()}"
-                           required
                            placeholder="First Name">
                 </div>
                 <div class="form-group col-4">
@@ -29,7 +27,6 @@
                            id="lastName"
                            name="lastName"
                            th:value="${user?.getLastName()}"
-                           required
                            placeholder="Last Name">
                 </div>
                 <div class="form-group col-4">
@@ -39,7 +36,6 @@
                            id="email"
                            name="email"
                            th:value="${user?.getEmail()}"
-                           required
                            placeholder="Email">
                 </div>
                 <div class="form-group  col-4">
@@ -49,7 +45,6 @@
                            id="address"
                            name="address"
                            th:value="${user?.getAddress()}"
-                           required
                            placeholder="Address">
                 </div>
                 <div class="form-group col-4">
@@ -59,7 +54,6 @@
                            id="city"
                            name="city"
                            th:value="${user?.getCity()}"
-                           required
                            placeholder="City">
                 </div>
                 <div class="form-group col-4">
@@ -68,8 +62,7 @@
                            class="form-control"
                            id="imageUrl"
                            name="imageUrl"
-                           th:value="${user?.getImageUrl()}"
-                           required
+                           disabled
                            placeholder="URL">
                 </div>
                 <div class="form-group col-4">
@@ -79,7 +72,6 @@
                            id="country"
                            name="country"
                            th:value="${user?.getCountry()}"
-                           required
                            placeholder="Country">
                 </div>
                 <div class="form-group col-4">
@@ -89,7 +81,6 @@
                            id="zipcode"
                            name="zipcode"
                            th:value="${user?.getZipcode()}"
-                           required
                            placeholder="Zipcode">
                 </div>
                 <div class="form-group col-4">

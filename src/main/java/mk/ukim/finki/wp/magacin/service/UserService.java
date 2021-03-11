@@ -11,6 +11,6 @@ public interface UserService {
             String email,
             String city,
             String country,
-            String zipcode, String imageUrl);
+            String zipcode);
     User getUser(String username);
 }

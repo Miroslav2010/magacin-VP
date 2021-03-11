@@ -6,6 +6,7 @@
         </div>
     </section>
     <div class="container">
+        <div class="row">
         <div id="mapid" style="height: 500px; width: 80%; margin: auto"></div>
         <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
                 integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
@@ -27,12 +28,13 @@
 
             }
         </script>
+        </div>
         <div class="row" sec:authorize="hasRole('ROLE_ADMIN')">
             <div class="col-4">
-                <ul>
-                    <li th:each="warehouse: ${warehouses}">
-                        <th:block th:text="${warehouse.getName()}"/>
-                        <form th:action="@{'/warehouses/delete/{id}' (id=${warehouse.getId()})}"
+                <ul class="list-group">
+                    <li class="list-group-item" th:each="warehouse: ${warehouses}">
+                        <th:block style="display:inline" th:text="${warehouse.getName()}"/>
+                        <form style="display:inline;" th:action="@{'/warehouses/delete/{id}' (id=${warehouse.getId()})}"
                               th:method="DELETE">
                             <button type="submit"
                                     class="btn btn-sm btn-danger">

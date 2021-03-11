@@ -21,6 +21,10 @@ public class MainController {
 
     @GetMapping
     public String showHome(Model model){
+        List<Item> list = this.itemService.findFirstThree();
+        model.addAttribute("first",list.get(0));
+        list.remove(list.get(0));
+        model.addAttribute("firstThree",list);
         model.addAttribute("bodyContent","homepage");
         model.addAttribute("itemNames", this.itemService.getItemNames());
         return "master-template";

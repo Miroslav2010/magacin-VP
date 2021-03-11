@@ -8,10 +8,10 @@
     <div class="container">
     <div class="row">
         <div class="col-4">
-            <ul>
-                <li th:each="manufacturer: ${manufacturers}">
-                    <th:block th:text="${manufacturer.name}"/>
-                    <form th:action="@{'/manufacturers/delete/{id}' (id=${manufacturer.getId()})}"
+            <ul class="list-group">
+                <li class="list-group-item" th:each="manufacturer: ${manufacturers}">
+                    <th:block style="display:inline" th:text="${manufacturer.name}"/>
+                    <form style="display: inline" th:action="@{'/manufacturers/delete/{id}' (id=${manufacturer.getId()})}"
                           th:method="DELETE">
                         <button type="submit"
                                 class="btn btn-sm btn-danger delete-product">

@@ -76,8 +76,16 @@ public class UsersController {
         return "master-template";
     }
     @PostMapping("/userdetails")
-    public String changeUserDetails(@RequestParam String username, @RequestParam(required = false) String password, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String address, @RequestParam String email, @RequestParam String city, @RequestParam String country, @RequestParam  String zipcode, @RequestParam String imageUrl){
-        this.userService.updateUser(username,password,firstName,lastName,address,email,city,country,zipcode,imageUrl);
+    public String changeUserDetails(@RequestParam String username,
+                                    @RequestParam String password,
+                                    @RequestParam(required = false) String firstName,
+                                    @RequestParam(required = false) String lastName,
+                                    @RequestParam(required = false) String address,
+                                    @RequestParam(required = false) String email,
+                                    @RequestParam(required = false) String city,
+                                    @RequestParam(required = false) String country,
+                                    @RequestParam(required = false) String zipcode){
+        this.userService.updateUser(username,password,firstName,lastName,address,email,city,country,zipcode);
         return "redirect:/userdetails";
     }
 

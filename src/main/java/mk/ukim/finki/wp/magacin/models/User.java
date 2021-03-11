@@ -22,7 +22,6 @@ public class User {
     private String city;
     private String country;
     private String zipcode;
-    private String imageUrl;
 
     @OneToMany(mappedBy = "user")
     List<Order> orders;

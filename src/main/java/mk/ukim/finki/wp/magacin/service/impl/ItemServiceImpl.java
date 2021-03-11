@@ -108,4 +108,9 @@ public class ItemServiceImpl implements ItemService {
         }
         return this.itemRepository.findAll();
     }
+
+    @Override
+    public List<Item> findFirstThree() {
+        return this.itemRepository.findFirst3ByOrderById();
+    }
 }
