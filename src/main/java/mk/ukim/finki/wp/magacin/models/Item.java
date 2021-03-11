@@ -34,6 +34,9 @@ public class Item {
     @ManyToMany(mappedBy = "items")
     List<ShoppingCart> shoppingCarts;
 
+    @OneToMany(mappedBy = "item")
+    List<ShoppingCartItem> shoppingCartItems;
+
 
     public Item() {
 
@@ -49,6 +52,7 @@ public class Item {
         this.category = category;
         this.manufacturer = manufacturer;
     }
+
 
     public Long getId() {
         return id;

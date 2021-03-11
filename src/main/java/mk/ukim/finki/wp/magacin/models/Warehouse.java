@@ -69,4 +69,13 @@ public class Warehouse {
     public void setEachItems(List<EachItem> eachItems) {
         this.eachItems = eachItems;
     }
+
+    public Integer stockOfItem(Long itemId){
+        Integer sum = 0;
+        for (EachItem eachItem: eachItems) {
+            if (eachItem.getItem().getId() == itemId)
+                sum+= eachItem.getQuantity();
+        }
+        return sum;
+    }
 }

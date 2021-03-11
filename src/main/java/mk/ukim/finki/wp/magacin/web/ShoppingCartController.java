@@ -2,6 +2,7 @@ package mk.ukim.finki.wp.magacin.web;
 
 import mk.ukim.finki.wp.magacin.models.Item;
 import mk.ukim.finki.wp.magacin.models.ShoppingCart;
+import mk.ukim.finki.wp.magacin.models.Warehouse;
 import mk.ukim.finki.wp.magacin.service.ItemService;
 import mk.ukim.finki.wp.magacin.service.ShoppingCartService;
 import org.springframework.stereotype.Controller;
@@ -24,18 +25,18 @@ public class ShoppingCartController {
     public String showShoppingCarts(HttpServletRequest req, Model model){
         String username = req.getRemoteUser();
         ShoppingCart shoppingCart = this.shoppingCartService.getShoppingCart(username);
-        model.addAttribute("products", this.shoppingCartService.listAllProductsInShoppingCart(shoppingCart.getId()));
+        model.addAttribute("products", this.shoppingCartService.listAllItems(shoppingCart.getId()));
         model.addAttribute("cart",shoppingCart);
         model.addAttribute("bodyContent", "shopping-cart");
         model.addAttribute("itemNames", this.itemService.getItemNames());
         return "master-template";
     }
     @PostMapping("/add-product/{id}")
-    public String addToShoppingCart(@PathVariable Long id, HttpServletRequest req){
+    public String addToShoppingCart(@PathVariable Long id, @RequestParam Long fromWarehouse, HttpServletRequest req){
         try {
             String username = req.getRemoteUser();
             this.shoppingCartService.getShoppingCart(username);
-            this.shoppingCartService.addProductToShoppingCart(username, id);
+            this.shoppingCartService.addProductToShoppingCart(username, id, fromWarehouse);
             return "redirect:/shopping-cart";
         } catch (RuntimeException exception) {
             return "redirect:/shopping-cart?error=" + exception.getMessage();

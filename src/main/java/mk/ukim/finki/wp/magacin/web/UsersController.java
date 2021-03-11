@@ -4,6 +4,7 @@ import mk.ukim.finki.wp.magacin.models.User;
 import mk.ukim.finki.wp.magacin.models.exceptions.InvalidUsernameOrPasswordException;
 import mk.ukim.finki.wp.magacin.models.exceptions.PasswordsDoNotMatchException;
 import mk.ukim.finki.wp.magacin.models.exceptions.UsernameAlreadyExistsException;
+import mk.ukim.finki.wp.magacin.service.ShoppingCartService;
 import mk.ukim.finki.wp.magacin.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -16,9 +17,11 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/")
 public class UsersController {
     private final UserService userService;
+    private final ShoppingCartService shoppingCartService;
 
-    public UsersController(UserService userService) {
+    public UsersController(UserService userService, ShoppingCartService shoppingCartService) {
         this.userService = userService;
+        this.shoppingCartService = shoppingCartService;
     }
 
     @GetMapping("/login")
@@ -87,6 +90,31 @@ public class UsersController {
                                     @RequestParam(required = false) String zipcode){
         this.userService.updateUser(username,password,firstName,lastName,address,email,city,country,zipcode);
         return "redirect:/userdetails";
+    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/users")
+    public String getAllUsers(Model model){
+        model.addAttribute("users", this.userService.getAllUsers());
+        model.addAttribute("bodyContent", "userlist");
+        return "master-template";
+    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/users/edit/{username}")
+    public String editUser(@PathVariable String username, Model model){
+        model.addAttribute("user", this.userService.findUserById(username));
+        model.addAttribute("bodyContent", "useredit");
+        return "master-template";
+    }
+    @PostMapping("/users/edit/{username}")
+    public String submitEditUser(@PathVariable String username, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String address, @RequestParam String email, @RequestParam String city, @RequestParam String country, @RequestParam  String zipcode){
+        this.userService.adminUserUpdate(username,firstName,lastName,address,email,city,country,zipcode);
+        return "redirect:/users";
+    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("/users/delete/{username}")
+    public String deleteOrder(@PathVariable String username){
+        this.userService.deleteUser(username);
+        return "redirect:/users";
     }
 
 }

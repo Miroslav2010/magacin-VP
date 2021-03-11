@@ -16,8 +16,10 @@
                 <p th:text="${item.getManufacturer().getName()}"></p>
                 <p th:text="${item.getDescription()}"></p>
                 <ul>
-                    <li th:each="warehouse: ${item.getWarehouses()}" th:text="${warehouse.getName()}"></li>
+                    <li th:each="warehouse: ${item.getWarehouses()}" th:text="${warehouse.getName() + ' - Stock: ' + warehouse.stockOfItem(item.getId())}"></li>
                 </ul>
+
+                <br>
                 <div>
                     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                         <form th:action="@{'/items/delete/{id}' (id=${item.getId()})}"
@@ -37,6 +39,9 @@
                     <form th:switch="${item.checkAvailability()}" th:action="@{'/shopping-cart/add-product/{id}' (id=${item.getId()})}"
                           th:method="POST"
                           sec:authorize="hasRole('ROLE_USER')">
+                        <select id="fromWarehouse" name="fromWarehouse" class="form-control">
+                            <option th:each="house: ${item.getWarehouses()}" th:value="${house.getId()}" th:text="${house.getName()}"></option>
+                        </select>
                         <button th:case="true" type="submit"
                                 class="btn btn-sm btn-primary cart-product">
                             <i  class="fas fa-shopping-cart pr-2">Add product to cart</i>

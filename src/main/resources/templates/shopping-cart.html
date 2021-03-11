@@ -26,10 +26,10 @@
                         </thead>
                         <tbody>
                         <tr th:each="product : ${products}" class="cart-item">
-                            <td th:text="${product.getName()}"></td>
-                            <td th:text="${product.getPrice()}"></td>
-                            <td th:text="${product.getManufacturer() != null} ? ${product.getManufacturer().getName()} : 'No Manufacturer'"></td>
-                            <td th:text="${product.getCategory() != null} ? ${product.getCategory().getName()} : 'No Category'"></td>
+                            <td th:text="${product.getItem().getName()}"></td>
+                            <td th:text="${product.getItem().getPrice()}"></td>
+                            <td th:text="${product.getItem().getManufacturer() != null} ? ${product.getItem().getManufacturer().getName()} : 'No Manufacturer'"></td>
+                            <td th:text="${product.getItem().getCategory() != null} ? ${product.getItem().getCategory().getName()} : 'No Category'"></td>
                             <td>
                                 <form th:action="@{'/shopping-cart/deleteitem/{id}/{itemid}' (id=${cart.getId()},itemid=${product.getId()})}"
                                       th:method="DELETE">

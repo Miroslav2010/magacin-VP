@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -74,8 +75,39 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public User adminUserUpdate(String username, String firstName, String lastName, String address, String email, String city, String country, String zipcode) {
+        User user = userRepository.findByUsername(username).orElseThrow(InvalidUsernameOrPasswordException::new);
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        user.setAddress(address);
+        user.setEmail(email);
+        user.setCity(city);
+        user.setEmail(email);
+        user.setCity(city);
+        user.setCountry(country);
+        user.setZipcode(zipcode);
+        this.userRepository.save(user);
+        return user;
+    }
+
+    @Override
     public User getUser(String username) {
         return this.userRepository.findById(username).orElseThrow(InvalidUsernameOrPasswordException::new);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return this.userRepository.findAll();
+    }
+
+    @Override
+    public User findUserById(String username) {
+        return this.userRepository.findById(username).orElseThrow(InvalidUsernameOrPasswordException::new);
+    }
+
+    @Override
+    public void deleteUser(String username) {
+        this.userRepository.delete(this.userRepository.findById(username).orElseThrow(InvalidUsernameOrPasswordException::new));
     }
 
 }

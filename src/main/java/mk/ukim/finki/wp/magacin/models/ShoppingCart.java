@@ -19,6 +19,11 @@ public class ShoppingCart {
     @ManyToMany
     List<Item> items;
 
+    @OneToMany(mappedBy = "shoppingCart")
+    List<ShoppingCartItem> shoppingCartItems;
+
+
+
     public ShoppingCart(User user) {
         this.user = user;
         items = new ArrayList<>();

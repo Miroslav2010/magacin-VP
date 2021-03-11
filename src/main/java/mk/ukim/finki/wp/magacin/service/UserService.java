@@ -2,6 +2,8 @@ package mk.ukim.finki.wp.magacin.service;
 
 import mk.ukim.finki.wp.magacin.models.User;
 
+import java.util.List;
+
 public interface UserService {
     User register(String username,String password,String repeatPassword,String role);
     User login(String username,String password);
@@ -12,5 +14,15 @@ public interface UserService {
             String city,
             String country,
             String zipcode);
+    User adminUserUpdate(String username,String firstName,
+                    String lastName,
+                    String address,
+                    String email,
+                    String city,
+                    String country,
+                    String zipcode);
     User getUser(String username);
+    List<User> getAllUsers();
+    User findUserById(String username);
+    void deleteUser(String username);
 }
