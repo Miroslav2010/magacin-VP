@@ -92,17 +92,19 @@
                         <th scope="col">Price</th>
                         <th scope="col">Manufacturer</th>
                         <th scope="col">Category</th>
+                        <th scope="col">Quantity</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="product : ${items}" class="product">
+                    <tr th:each="item : ${items}" class="product">
 
-                        <td th:text="${product.getName()}"></td>
-                        <td th:text="${product.getPrice()}"></td>
-                        <td th:text="${product.getManufacturer() != null}
-                            ? ${product.getManufacturer().getName()} : 'No Manufacturer'"></td>
-                        <td th:text="${product.getCategory() != null}
-                            ? ${product.getCategory().getName()} : 'No Category'"></td>
+                        <td th:text="${item.getItem().getName()}"></td>
+                        <td th:text="${item.getItem().getPrice()}"></td>
+                        <td th:text="${item.getItem().getManufacturer() != null}
+                            ? ${item.getItem().getManufacturer().getName()} : 'No Manufacturer'"></td>
+                        <td th:text="${item.getItem().getCategory() != null}
+                            ? ${item.getItem().getCategory().getName()} : 'No Category'"></td>
+                        <td th:text="${item.getQuantity()}"></td>
                     </tr>
 
                     </tbody>

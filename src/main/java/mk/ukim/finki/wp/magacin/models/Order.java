@@ -19,7 +19,7 @@ public class Order {
     User user;
 
     @ManyToMany
-    List<Item> items;
+    List<ShoppingCartItem> items;
 
     String firstName;
 
@@ -37,7 +37,7 @@ public class Order {
 
     OrderStatus status;
 
-    public Order(User user, List<Item> items, String firstName, String lastName, String email, String address, String country, String city, String zipCode) {
+    public Order(User user, List<ShoppingCartItem> items, String firstName, String lastName, String email, String address, String country, String city, String zipCode) {
         this.user = user;
         this.items = items;
         this.firstName = firstName;

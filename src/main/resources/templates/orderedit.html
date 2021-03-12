@@ -115,11 +115,25 @@
                     </button>
                 </form>
             </div>
-            <div class="col-3">
+            <div class="col-6">
                 <p>Ordered items:</p>
-                <ul>
-                    <li th:each="orderItem: ${order.getItems()}" th:text="${orderItem.getName()}"></li>
-                </ul>
+                <table class="table table-striped" id="tabela">
+                    <thead>
+                        <tr>
+                            <th>Item name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="item:${order.getItems()}">
+                            <td th:text="${item.getItem().getName()}"></td>
+                            <td th:text="${item.getQuantity()}"></td>
+                            <td th:text="${item.getQuantity()*item.getItem().getPrice()}"></td>
+                        </tr>
+                    </tbody>
+
+                </table>
             </div>
 
         </div>

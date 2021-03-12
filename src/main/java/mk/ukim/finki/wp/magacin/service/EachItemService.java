@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface EachItemService {
     Optional<EachItem> findById(Long id);
-    boolean lowerQuantity(Long id);
+    boolean lowerQuantity(Long id,Integer q);
     void addItems(Integer quantity, Warehouse warehouse, Item item);
 }

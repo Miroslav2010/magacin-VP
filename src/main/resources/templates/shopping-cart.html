@@ -20,16 +20,25 @@
                         <tr>
                             <th scope="col">Product</th>
                             <th scope="col">Price</th>
+                            <th scope="col">Warehouse</th>
                             <th scope="col">Manufacturer</th>
                             <th scope="col">Category</th>
+                            <th scope="col">Quantity</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="product : ${products}" class="cart-item">
                             <td th:text="${product.getItem().getName()}"></td>
                             <td th:text="${product.getItem().getPrice()}"></td>
+                            <td th:text="${product.getWarehouse().getName()}"></td>
                             <td th:text="${product.getItem().getManufacturer() != null} ? ${product.getItem().getManufacturer().getName()} : 'No Manufacturer'"></td>
                             <td th:text="${product.getItem().getCategory() != null} ? ${product.getItem().getCategory().getName()} : 'No Category'"></td>
+                            <td style="width: 8rem;">
+                                <form method="post" th:action="@{'/shopping-cart/changequantity/{id}' (id=${product.getId()})}">
+                                    <input class="form-control" name="quantity" type="number" min="1"
+                                           th:max="${product.getWarehouse().stockOfItem(product.getItem().getId())}" th:value="${product.getQuantity()}" onchange="this.form.submit()">
+                                </form>
+                            </td>
                             <td>
                                 <form th:action="@{'/shopping-cart/deleteitem/{id}/{itemid}' (id=${cart.getId()},itemid=${product.getId()})}"
                                       th:method="DELETE">
@@ -39,6 +48,7 @@
                                     </button>
                                 </form>
                             </td>
+
                         </tr>
                         </tbody>
                     </table>

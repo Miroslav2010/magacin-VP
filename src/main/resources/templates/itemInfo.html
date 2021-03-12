@@ -39,7 +39,7 @@
                     <form th:switch="${item.checkAvailability()}" th:action="@{'/shopping-cart/add-product/{id}' (id=${item.getId()})}"
                           th:method="POST"
                           sec:authorize="hasRole('ROLE_USER')">
-                        <select id="fromWarehouse" name="fromWarehouse" class="form-control">
+                        <select th:if="${item.checkAvailability()}" id="fromWarehouse" name="fromWarehouse" class="form-control">
                             <option th:each="house: ${item.getWarehouses()}" th:value="${house.getId()}" th:text="${house.getName()}"></option>
                         </select>
                         <button th:case="true" type="submit"

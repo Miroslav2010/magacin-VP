@@ -2,6 +2,7 @@ package mk.ukim.finki.wp.magacin.web;
 
 import mk.ukim.finki.wp.magacin.models.Item;
 import mk.ukim.finki.wp.magacin.models.ShoppingCart;
+import mk.ukim.finki.wp.magacin.models.ShoppingCartItem;
 import mk.ukim.finki.wp.magacin.models.User;
 import mk.ukim.finki.wp.magacin.models.enumerations.OrderStatus;
 import mk.ukim.finki.wp.magacin.service.ItemService;
@@ -36,11 +37,11 @@ public class OrdersController {
     public String checkout(Model model, HttpServletRequest request){
         User user = this.userService.getUser(request.getRemoteUser());
         ShoppingCart cart = this.shoppingCartService.getShoppingCart(request.getRemoteUser());
-        List<Item> items = cart.getItems();
+        List<ShoppingCartItem> items = cart.getShoppingCartItems();
         Double totalPrice = 0.0;
-        for (Item item :
+        for (ShoppingCartItem item :
                 items) {
-            totalPrice+=item.getPrice();
+            totalPrice+=item.getQuantity()*item.getItem().getPrice();
         }
         model.addAttribute("items",items);
         model.addAttribute("bodyContent","checkout");
@@ -55,9 +56,9 @@ public class OrdersController {
                                @RequestParam String country, @RequestParam String city,
                                @RequestParam String zipCode, HttpServletRequest request){
         ShoppingCart cart = this.shoppingCartService.getShoppingCart(request.getRemoteUser());
-        List<Item> items = cart.getItems();
+        List<ShoppingCartItem> items = cart.getShoppingCartItems();
         List<Long> itemsList = new ArrayList<>();
-        for (Item item: items) {
+        for (ShoppingCartItem item: items) {
             itemsList.add(item.getId());
         }
         this.shoppingCartService.deleteAllItems(cart.getId());

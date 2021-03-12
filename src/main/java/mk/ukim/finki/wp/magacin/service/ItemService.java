@@ -14,6 +14,7 @@ public interface ItemService {
     Item update(Long id, String name, String description, String imageUrl, Boolean availability, Double price, Long categoryId, Long manufacturerId);
     Item delete(Long id);
     Item toggleAvailability(Long id);
+    Item setAvailability(Long id,Boolean availability);
     List<String> getItemNames();
     List<Item> searchItemsByName(String search);
     List<Item> getItemsByCategoryManufacturerAndAvailability(Long categoryId,Long manufacturerId,Boolean availability);

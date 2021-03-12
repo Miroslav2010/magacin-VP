@@ -1,9 +1,9 @@
 package mk.ukim.finki.wp.magacin.web;
 
-import mk.ukim.finki.wp.magacin.models.Item;
 import mk.ukim.finki.wp.magacin.models.ShoppingCart;
-import mk.ukim.finki.wp.magacin.models.Warehouse;
+import mk.ukim.finki.wp.magacin.models.ShoppingCartItem;
 import mk.ukim.finki.wp.magacin.service.ItemService;
+import mk.ukim.finki.wp.magacin.service.ShoppingCartItemService;
 import mk.ukim.finki.wp.magacin.service.ShoppingCartService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
     private final ItemService itemService;
+    private final ShoppingCartItemService shoppingCartItemService;
 
-    public ShoppingCartController(ShoppingCartService shoppingCartService, ItemService itemService) {
+    public ShoppingCartController(ShoppingCartService shoppingCartService, ItemService itemService, ShoppingCartItemService shoppingCartItemService) {
         this.shoppingCartService = shoppingCartService;
         this.itemService = itemService;
+        this.shoppingCartItemService = shoppingCartItemService;
     }
     @GetMapping
     public String showShoppingCarts(HttpServletRequest req, Model model){
@@ -44,13 +46,18 @@ public class ShoppingCartController {
     }
     @DeleteMapping("/deleteitem/{id}/{itemid}")
     public String deleteItem(@PathVariable Long id, @PathVariable Long itemid){
-        Item item = this.itemService.findbyId(itemid);
+        ShoppingCartItem item = this.shoppingCartItemService.findById(itemid);
         this.shoppingCartService.deleteItem(item,id);
         return "redirect:/shopping-cart";
     }
     @DeleteMapping("/delete/{id}")
     public String deleteCart(@PathVariable Long id) {
         this.shoppingCartService.deleteAllItems(id);
+        return "redirect:/shopping-cart";
+    }
+    @PostMapping("/changequantity/{id}")
+    public String changeQuantityOfItem(@PathVariable Long id,@RequestParam Integer quantity){
+        this.shoppingCartItemService.updateQuantityOfItem(id,quantity);
         return "redirect:/shopping-cart";
     }
 }

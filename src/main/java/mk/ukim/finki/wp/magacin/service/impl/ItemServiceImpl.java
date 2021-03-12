@@ -110,6 +110,13 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public Item setAvailability(Long id,Boolean availability) {
+        Item item = this.itemRepository.findById(id).orElseThrow(InvalidItemIdException::new);
+        item.setAvailability(availability);
+        return this.itemRepository.save(item);
+    }
+
+    @Override
     public List<Item> findFirstThree() {
         return this.itemRepository.findFirst3ByOrderById();
     }

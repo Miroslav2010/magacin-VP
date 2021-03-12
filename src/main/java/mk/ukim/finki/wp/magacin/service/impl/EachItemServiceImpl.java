@@ -27,7 +27,8 @@ public class EachItemServiceImpl implements EachItemService {
     @Override
     public void addItems(Integer quantity, Warehouse warehouse, Item item) {
         Optional<EachItem> eachItem = this.eachItemRepository.findByItemAndWarehouse(item,warehouse);
-        this.itemService.toggleAvailability(item.getId());
+        //this.itemService.toggleAvailability(item.getId());
+        this.itemService.setAvailability(item.getId(),true);
         if(eachItem.isPresent()){
             EachItem em = eachItem.get();
             em.setQuantity(em.getQuantity()+quantity);
@@ -38,17 +39,20 @@ public class EachItemServiceImpl implements EachItemService {
     }
 
     @Override
-    public boolean lowerQuantity(Long id) {
+    public boolean lowerQuantity(Long id,Integer q) {
         Optional<EachItem> eachItem = this.eachItemRepository.findById(id);
         if(!eachItem.isPresent()){
             return false;
         }
         EachItem item = eachItem.get();
         int quantity = item.getQuantity();
-        quantity--;
+
+        if(quantity<q) return false;
+
+        quantity-=q;
 
         if(quantity==0){
-            this.itemService.toggleAvailability(item.getItem().getId());
+            this.itemService.setAvailability(item.getItem().getId(),false);
             this.eachItemRepository.deleteById(item.getId());
             return false;
         }

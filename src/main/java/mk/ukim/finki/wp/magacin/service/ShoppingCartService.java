@@ -10,7 +10,7 @@ import java.util.List;
 public interface ShoppingCartService {
     ShoppingCart findById(Long id);
     ShoppingCart deleteShoppingCart(Long id);
-    ShoppingCart deleteItem(Item item, Long id);
+    ShoppingCart deleteItem(ShoppingCartItem item, Long id);
     ShoppingCart deleteAllItems(Long id);
     ShoppingCart getShoppingCart(String username);
     List<Item> listAllProductsInShoppingCart(Long id);
