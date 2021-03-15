@@ -1,5 +1,6 @@
+
 <header xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
         <div class="container">
             <a class="navbar-brand mb-0 h1" href="/">MAGACIN VP</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
@@ -58,8 +59,8 @@
                                aria-describedby="inputGroup-sizing-sm"
                                placeholder="Search...">
                         <div class="input-group-append">
-                        <button type="submit" class="btn btn-outline-warning">
-                            <i class="fa fa-search">Search</i>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="fa fa-search"></i>Search
                         </button>
                         </div>
                     </div>
@@ -75,18 +76,18 @@
                         </a>
                     </li>
                     <li class="nav-item" sec:authorize="hasRole('ROLE_USER')" style="margin: auto">
-                        <a class="btn btn-outline-success btn-sm ml-3" href="/shopping-cart">
+                        <a class="btn btn-success btn-sm ml-3" href="/shopping-cart">
                             <i class="fa fa-shopping-cart"></i> Cart
                         </a>
                     </li>
                     <li class="nav-item" sec:authorize="isAuthenticated()" style="margin: auto">
-                        <a class="btn btn-outline-danger btn-sm ml-3" href="/logout">
-                            <i class="fa fa-shopping-cart"></i> Logout
+                        <a class="btn btn-danger btn-sm ml-3" href="/logout">
+                             Logout
                         </a>
                     </li>
                     <li class="nav-item" sec:authorize="!isAuthenticated()" style="margin: auto">
-                        <a class="btn btn-outline-primary btn-sm ml-3" href="/login">
-                            <i class="fa fa-shopping-cart"></i> Login
+                        <a class="btn btn-primary btn-sm ml-3" href="/login">
+                            Login
                         </a>
                     </li>
                 </ul>

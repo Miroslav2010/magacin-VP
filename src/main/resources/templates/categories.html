@@ -1,4 +1,4 @@
-<th:block xmlns:th="http://www.thymeleaf.org">
+<div xmlns:th="http://www.thymeleaf.org">
     <section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">MAGACIN VP</h1>
@@ -7,30 +7,29 @@
     </section>
     <div class="container">
     <div class="row">
-        <div class="col-4">
+        <div class="col-6">
             <ul class="list-group">
                 <li class="list-group-item" th:each="category: ${categories}">
                     <th:block style="display:inline" th:text="${category.name}"/>
-                    <form style="display: inline" th:action="@{'/categories/delete/{id}' (id=${category.getId()})}"
+                    <form style="display: inline; float: right" th:action="@{'/categories/delete/{id}' (id=${category.getId()})}"
                           th:method="DELETE">
                         <button type="submit"
                                 class="btn btn-sm btn-danger delete-product">
-                            <i class="fa fa-trash">Delete</i>
+                            Delete
                         </button>
                     </form>
                 </li>
             </ul>
-
-            <div class="container">
+        </div>
+        <div class="col-6">
             <h3>Add New Category</h3>
             <form action="/categories/add" method="POST">
                 <div class="form-group">
-                <label for='name'>Name:</label><input class="form-control" id='name' type='text' name='name'/>
-                <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                    <label for='name'>Name:</label><input class="form-control" id='name' type='text' name='name'/>
                 </div>
+                <button id="submit" type="submit" class="btn btn-primary">Submit</button>
             </form>
-            </div>
         </div>
     </div>
     </div>
-</th:block>
+</div>

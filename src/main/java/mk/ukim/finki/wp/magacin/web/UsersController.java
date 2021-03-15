@@ -4,6 +4,7 @@ import mk.ukim.finki.wp.magacin.models.User;
 import mk.ukim.finki.wp.magacin.models.exceptions.InvalidUsernameOrPasswordException;
 import mk.ukim.finki.wp.magacin.models.exceptions.PasswordsDoNotMatchException;
 import mk.ukim.finki.wp.magacin.models.exceptions.UsernameAlreadyExistsException;
+import mk.ukim.finki.wp.magacin.service.ItemService;
 import mk.ukim.finki.wp.magacin.service.ShoppingCartService;
 import mk.ukim.finki.wp.magacin.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,10 +19,12 @@ import javax.servlet.http.HttpServletRequest;
 public class UsersController {
     private final UserService userService;
     private final ShoppingCartService shoppingCartService;
+    private final ItemService itemService;
 
-    public UsersController(UserService userService, ShoppingCartService shoppingCartService) {
+    public UsersController(UserService userService, ShoppingCartService shoppingCartService, ItemService itemService) {
         this.userService = userService;
         this.shoppingCartService = shoppingCartService;
+        this.itemService = itemService;
     }
 
     @GetMapping("/login")
@@ -75,6 +78,7 @@ public class UsersController {
     @GetMapping("/userdetails")
     public String getUserDetails(HttpServletRequest req, Model model){
         model.addAttribute("user", this.userService.getUser(req.getRemoteUser()));
+        model.addAttribute("items",this.itemService.listAll());
         model.addAttribute("bodyContent", "userdetails");
         return "master-template";
     }
@@ -96,12 +100,14 @@ public class UsersController {
     public String getAllUsers(Model model){
         model.addAttribute("users", this.userService.getAllUsers());
         model.addAttribute("bodyContent", "userlist");
+        model.addAttribute("items",this.itemService.listAll());
         return "master-template";
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/users/edit/{username}")
     public String editUser(@PathVariable String username, Model model){
         model.addAttribute("user", this.userService.findUserById(username));
+        model.addAttribute("items",this.itemService.listAll());
         model.addAttribute("bodyContent", "useredit");
         return "master-template";
     }

@@ -1,4 +1,4 @@
-<th:block xmlns:th="http://www.thymeleaf.org">
+<div xmlns:th="http://www.thymeleaf.org">
     <section class="jumbotron text-center">
         <div class="container">
             <h3 class="jumbotron-heading">Shopping cart for
@@ -44,7 +44,7 @@
                                       th:method="DELETE">
                                     <button type="submit"
                                             class="btn btn-sm btn-danger">
-                                        <i class="fa fa-trash">Delete</i>
+                                        <i class="fa fa-trash"></i>Delete
                                     </button>
                                 </form>
                             </td>
@@ -52,18 +52,18 @@
                         </tr>
                         </tbody>
                     </table>
-                    <form action="/orders/checkout"
+                    <form style="display: inline; padding-right: 10px" action="/orders/checkout"
                           th:method="GET">
                         <button type="submit"
-                                class="btn btn-sm btn-info">
-                            <i class="fa fa-trash">Checkout</i>
+                                class="btn btn-sm btn-primary">
+                            Checkout
                         </button>
                     </form>
-                    <form th:action="@{'/shopping-cart/delete/{id}' (id=${cart.getId()})}"
+                    <form style="display: inline;padding-left: 10px" th:action="@{'/shopping-cart/delete/{id}' (id=${cart.getId()})}"
                           th:method="DELETE">
                         <button type="submit"
                                 class="btn btn-sm btn-danger">
-                            <i class="fa fa-trash">Clear Cart</i>
+                            Clear Cart
                         </button>
                     </form>
 
@@ -72,7 +72,7 @@
             </div>
         </div>
     </div>
-</th:block>
+</div>
 
 
 

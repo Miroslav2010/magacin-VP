@@ -7,45 +7,47 @@
     </section>
     <div class="container">
         <div class="row">
-        <div id="mapid" style="height: 500px; width: 80%; margin: auto"></div>
-        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-                integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-                crossorigin="">
-        </script>
-        <script th:inline="javascript">
-            var mymap = L.map('mapid').setView([41.995961, 21.431476], 13);
-            L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap'
-            }).addTo(mymap);
-            var magacini = [[${displayWarehouses}]] ;
-            for(var i=0;i<magacini.length;i++)
-            {
-                L.marker([magacini[i].latitude,magacini[i].longitude]).addTo(mymap)
-                    .bindPopup(
-                        "Warehouse: "+magacini[i].name+'<br>'
-                    )
+            <div id="mapid" style="height: 500px; width: 80%; margin: auto"></div>
+            <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+                    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+                    crossorigin="">
+            </script>
+            <script th:inline="javascript">
+                var mymap = L.map('mapid').setView([41.995961, 21.431476], 13);
+                L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap'
+                }).addTo(mymap);
+                var magacini = [[${displayWarehouses}]] ;
+                for(var i=0;i<magacini.length;i++)
+                {
+                    L.marker([magacini[i].latitude,magacini[i].longitude]).addTo(mymap)
+                        .bindPopup(
+                            "Warehouse: "+magacini[i].name+'<br>'
+                        )
 
-            }
-        </script>
+                }
+            </script>
         </div>
         <div class="row" sec:authorize="hasRole('ROLE_ADMIN')">
-            <div class="col-4">
+            <div class="col-6" >
+                <br>
                 <ul class="list-group">
                     <li class="list-group-item" th:each="warehouse: ${warehouses}">
                         <th:block style="display:inline" th:text="${warehouse.getName()}"/>
-                        <form style="display:inline;" th:action="@{'/warehouses/delete/{id}' (id=${warehouse.getId()})}"
+                        <form style="display:inline; float: right" th:action="@{'/warehouses/delete/{id}' (id=${warehouse.getId()})}"
                               th:method="DELETE">
                             <button type="submit"
                                     class="btn btn-sm btn-danger">
-                                <i class="fa fa-trash">Delete</i>
+                                <i class="fa">Delete</i>
                             </button>
                         </form>
                     </li>
                 </ul>
-                <div class="container">
-
+            </div>
+            <div class="col-6">
+                <br>
                     <h3>Add New Warehouse</h3>
-
+                <br>
                     <form action="/warehouses/add" method="POST">
                         <div class="form-group">
                             <label for='name'>Name:</label>
@@ -61,7 +63,7 @@
                         </div>
                         <button id="submit" type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                </div>
+
             </div>
         </div>
     </div>

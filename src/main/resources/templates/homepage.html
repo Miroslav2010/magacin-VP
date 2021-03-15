@@ -1,3 +1,4 @@
+
 <div xmlns:th="http://www.thymeleaf.org">
     <section class="jumbotron text-center">
         <div class="container">
@@ -5,11 +6,11 @@
             <h3 class="jumbotron-heading">Homepage</h3>
         </div>
     </section>
-    <h2>What we offer</h2>
+
     <div class="container">
         <div class="row">
             <div class="col-12">
-
+                <h2>What we offer</h2>
                 <div id="carouselExampleIndicators" class="carousel slide customka" data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -18,14 +19,14 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img style="max-height: 500px; max-width: 400px; margin: auto;opacity: 0.7;
+                            <img style="height: 500px; max-width: 400px; margin: auto;opacity: 0.7;
     filter: alpha(opacity=70);" class="d-block w-100" th:src="${first.getImageUrl()}" alt="slide">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5 th:text="${first.getName()}"></h5>
                             </div>
                         </div>
                         <div th:each="item: ${firstThree}" class="carousel-item">
-                            <img style="max-height: 500px; max-width: 400px; margin: auto;opacity: 0.7;
+                            <img style="height: 500px; max-width: 400px; margin: auto;opacity: 0.7;
     filter: alpha(opacity=70);" src="" class="d-block w-100" th:src="${item.getImageUrl()}" alt="slide">
                             <div class="carousel-caption d-none d-md-block">
                                 <h5 th:text="${item.getName()}"></h5>

@@ -7,14 +7,15 @@
     </section>
     <div class="container mb-4">
         <div class="row">
-            <div style="width: 50%">
-            <img style="max-height: 80%;max-width: 80%" th:src="${item.getImageUrl()}">
+            <div class="col-6">
+                <img style="max-height: 80%;max-width: 80%" th:src="${item.getImageUrl()}">
+                <p th:text="${item.getDescription()}"></p>
             </div>
-            <div style="width: 50%">
+            <div class="col-6">
                 <p th:text="${item.getPrice()}"></p>
                 <p th:text="${item.getCategory().getName()}"></p>
                 <p th:text="${item.getManufacturer().getName()}"></p>
-                <p th:text="${item.getDescription()}"></p>
+
                 <ul>
                     <li th:each="warehouse: ${item.getWarehouses()}" th:text="${warehouse.getName() + ' - Stock: ' + warehouse.stockOfItem(item.getId())}"></li>
                 </ul>
@@ -26,28 +27,30 @@
                               th:method="DELETE">
                             <button type="submit"
                                     class="btn btn-sm btn-danger delete-product">
-                                <i class="fa fa-trash">Delete</i>
+                                <i class="fa">Delete</i>
                             </button>
                         </form>
                     </th:block>
                     <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                         <a th:href="@{'/items/edit/{id}' (id=${item.getId()})}"
                            class="btn btn-sm btn-info edit-product">
-                            <i class="fa fa-trash">Edit</i>
+                            <i class="fa">Edit</i>
                         </a>
                     </th:block>
                     <form th:switch="${item.checkAvailability()}" th:action="@{'/shopping-cart/add-product/{id}' (id=${item.getId()})}"
                           th:method="POST"
                           sec:authorize="hasRole('ROLE_USER')">
-                        <select th:if="${item.checkAvailability()}" id="fromWarehouse" name="fromWarehouse" class="form-control">
-                            <option th:each="house: ${item.getWarehouses()}" th:value="${house.getId()}" th:text="${house.getName()}"></option>
-                        </select>
+                        <div class="form-group">
+                            <select th:if="${item.checkAvailability()}" id="fromWarehouse" name="fromWarehouse" class="form-control">
+                                <option th:each="house: ${item.getWarehouses()}" th:value="${house.getId()}" th:text="${house.getName()}"></option>
+                            </select>
+                        </div>
                         <button th:case="true" type="submit"
-                                class="btn btn-sm btn-primary cart-product">
-                            <i  class="fas fa-shopping-cart pr-2">Add product to cart</i>
+                                class="btn btn-primary btn-sm mr-1 mb-2">
+                            <i  class="fa fa-shopping-cart"></i>Add product to cart
                         </button>
                         <button th:case="false" disabled class="btn btn-sm btn-primary cart-product">
-                            <i  class="fas fa-shopping-cart pr-2">Add product to cart</i>
+                            <i  class="fa fa-shopping-cart"></i>Add product to cart
                         </button>
                     </form>
                 </div>

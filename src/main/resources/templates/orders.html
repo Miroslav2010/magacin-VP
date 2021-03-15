@@ -42,10 +42,12 @@
                                 <td th:text="${order.getZipCode()}"></td>
                                 <td th:text="${order.getEmail()}"></td>
                                 <td th:text="${order.getStatus()}"></td>
-                                <td style="max-width: 60px"><a th:href="@{'/orders/edit/{id}' (id=${order.getId()})}"
+                                <td style="max-width: 60px">
+                                    <a th:href="@{'/orders/edit/{id}' (id=${order.getId()})}"
                                    class="btn btn-sm btn-info edit-product">
-                                    <i class="fa fa-trash">Edit</i>
-                                </a></td>
+                                    Edit
+                                    </a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
