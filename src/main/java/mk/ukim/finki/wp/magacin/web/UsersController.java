@@ -122,5 +122,24 @@ public class UsersController {
         this.userService.deleteUser(username);
         return "redirect:/users";
     }
+    @PostMapping("/userdetails/changepassword/{username}")
+    public String changePass(@PathVariable String username, @RequestParam String oldpass, @RequestParam String newpass, @RequestParam String confirmnewpass){
+        if(newpass.equals(confirmnewpass)){
+            this.userService.changePassword(username,oldpass,newpass);
+        }
+        return "redirect:/userdetails";
+    }
+    @PostMapping("/userdetails/deactivate/{username}")
+    public String changePass(@PathVariable String username, @RequestParam String deactpass, @RequestParam String deactconfirmpass){
+        if(deactpass.equals(deactconfirmpass)){
+            if(userService.checkPassword(username,deactpass)) {
+                if(this.userService.findUserById(username).getShoppingCart() != null)
+                    this.shoppingCartService.deleteShoppingCart(this.userService.findUserById(username).getShoppingCart().getId());
+                this.userService.deleteUser(username);
+                return "redirect:/logout";
+            }
+        }
+        return "redirect:/userdetails";
+    }
 
 }

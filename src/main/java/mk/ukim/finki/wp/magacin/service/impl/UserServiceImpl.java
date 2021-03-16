@@ -110,4 +110,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.userRepository.delete(this.userRepository.findById(username).orElseThrow(InvalidUsernameOrPasswordException::new));
     }
 
+    @Override
+    public User changePassword(String username, String oldpass, String newpass) {
+        User user = userRepository.findByUsername(username).orElseThrow(InvalidUsernameOrPasswordException::new);
+        if (passwordEncoder.matches(oldpass, user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(newpass));
+        }
+        return this.userRepository.save(user);
+    }
+
+    @Override
+    public boolean checkPassword(String username, String pass) {
+        User user = userRepository.findByUsername(username).orElseThrow(InvalidUsernameOrPasswordException::new);
+        if (passwordEncoder.matches(pass, user.getPassword()))
+            return true;
+        return false;
+    }
+
 }

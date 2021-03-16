@@ -25,4 +25,6 @@ public interface UserService {
     List<User> getAllUsers();
     User findUserById(String username);
     void deleteUser(String username);
+    User changePassword(String username, String oldpass, String newpass);
+    boolean checkPassword(String username, String pass);
 }

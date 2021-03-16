@@ -44,6 +44,9 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     @Override
     public ShoppingCart deleteShoppingCart(Long id) {
         ShoppingCart shoppingCart = this.findById(id);
+        User user = this.userRepository.findByUsername(shoppingCart.getUser().getUsername()).orElseThrow(InvalidUsernameOrPasswordException::new);
+        user.setShoppingCart(null);
+        this.userRepository.save(user);
         this.shoppingCartRepository.delete(shoppingCart);
         return shoppingCart;
     }
@@ -71,14 +74,15 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCart getShoppingCart(String username) {
-        User user = this.userRepository.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException());
-
+        User user = this.userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException());
         return this.shoppingCartRepository
                 .findByUser(user)
                 .orElseGet(() -> {
                     ShoppingCart cart = new ShoppingCart(user);
-                    return this.shoppingCartRepository.save(cart);
+                    user.setShoppingCart(cart);
+                    cart = this.shoppingCartRepository.save(cart);
+                    this.userRepository.save(user);
+                    return cart;
                 });
 
     }

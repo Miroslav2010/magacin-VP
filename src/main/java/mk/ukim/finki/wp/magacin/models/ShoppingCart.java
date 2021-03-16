@@ -25,7 +25,7 @@ public class ShoppingCart {
 
     public ShoppingCart(User user) {
         this.user = user;
-        items = new ArrayList<>();
+        this.shoppingCartItems = new ArrayList<>();
     }
 
     public ShoppingCart() {
