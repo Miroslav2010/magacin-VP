@@ -1,4 +1,10 @@
 <style>
+    .darken{
+        height: 500px;
+        width: 700px;
+        margin: auto;
+        filter: brightness(50%);
+    }
 
     .feature {
         position: relative;
@@ -55,17 +61,15 @@
                     </ol>
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img style="height: 500px; max-width: 400px; margin: auto;opacity: 0.7;
-    filter: alpha(opacity=70);" class="d-block w-100" th:src="${first.getImageUrl()}" alt="slide">
+                            <img class="d-block w-100 darken" th:src="${first.getImageUrl()}" alt="slide">
                             <div class="carousel-caption d-none d-md-block">
-                                <h5 th:text="${first.getName()}"></h5>
+                                <a style="color:white;" th:href="@{'/items/{id}' (id=${first.getId()})}"><h5 th:text="${first.getName()}"></h5></a>
                             </div>
                         </div>
                         <div th:each="item: ${firstThree}" class="carousel-item">
-                            <img style="height: 500px; max-width: 400px; margin: auto;opacity: 0.7;
-    filter: alpha(opacity=70);" src="" class="d-block w-100" th:src="${item.getImageUrl()}" alt="slide">
+                            <img class="darken d-block w-100" th:src="${item.getImageUrl()}" alt="slide">
                             <div class="carousel-caption d-none d-md-block">
-                                <h5 th:text="${item.getName()}"></h5>
+                                <a style="color: white;" th:href="@{'/items/{id}' (id=${item.getId()})}"><h5 th:text="${item.getName()}"></h5></a>
                             </div>
                         </div>
                         <!--<div class="carousel-item active">
@@ -88,7 +92,9 @@
                     </a>
                 </div>
             </div>
-
+        </div>
+        <div class="row">
+            <div class="col-12">
             <!-- Feature Start-->
             <div class="feature">
                 <div class="container-fluid">
@@ -131,6 +137,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
             <!-- Feature End-->
         </div>

@@ -2,59 +2,97 @@
     <section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">MAGACIN VP</h1>
-            <h3 class="jumbotron-heading" th:text="${item.getName()}"></h3>
+            <h3 class="jumbotron-heading">Item details</h3>
         </div>
     </section>
-    <div class="container mb-4">
-        <div class="row">
-            <div class="col-6">
-                <img style="max-height: 80%;max-width: 80%" th:src="${item.getImageUrl()}">
-                <p th:text="${item.getDescription()}"></p>
-            </div>
-            <div class="col-6">
-                <p th:text="${item.getPrice()}"></p>
-                <p th:text="${item.getCategory().getName()}"></p>
-                <p th:text="${item.getManufacturer().getName()}"></p>
+            <!--Section: Block Content-->
+            <section>
 
-                <ul>
-                    <li th:each="warehouse: ${item.getWarehouses()}" th:text="${warehouse.getName() + ' - Stock: ' + warehouse.stockOfItem(item.getId())}"></li>
-                </ul>
+                <div class="row">
+                    <div class="col-6">
 
-                <br>
-                <div>
-                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                        <form th:action="@{'/items/delete/{id}' (id=${item.getId()})}"
-                              th:method="DELETE">
-                            <button type="submit"
-                                    class="btn btn-sm btn-danger delete-product">
-                                <i class="fa">Delete</i>
+                        <img style="max-height: 80%;max-width: 80%;float: right" th:src="${item.getImageUrl()}">
+
+                    </div>
+                    <div class="col-6">
+
+                        <h5 th:text="${item.getName()}"></h5>
+                        <p><span class="mr-1"><strong>$</strong><strong th:text="${item.getPrice()}"></strong></span></p>
+                        <p th:text="${item.getDescription()}" class="pt-1"></p>
+                        <div class="table-responsive">
+                            <table class="table table-sm table-borderless mb-0">
+                                <tbody>
+                                <tr>
+                                    <th class="pl-0 w-25" scope="row"><strong>Manufacturer</strong></th>
+                                    <td th:text="${item.getManufacturer().getName()}"></td>
+                                </tr>
+                                <tr>
+                                    <th class="pl-0 w-25" scope="row"><strong>Category</strong></th>
+                                    <td th:text="${item.getCategory().getName()}"></td>
+                                </tr>
+                                <tr>
+                                    <th class="pl-0 w-25" scope="row"><strong>Delivery</strong></th>
+                                    <td>USA, Europe</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <hr>
+                        <div class="table-responsive mb-2">
+                            <table class="table table-sm table-borderless">
+                                <tbody>
+                                <tr>
+                                    <td class="pl-0 pb-0 w-25">Available in:</td>
+                                    <td  class="pb-0" sec:authorize="hasRole('ROLE_ADMIN')">Admin controls</td>
+                                </tr>
+                                <tr>
+                                    <td class="pl-0">
+                                        <ul class="list-group">
+                                            <li class="list-group-item"
+                                                th:each="warehouse: ${item.getWarehouses()}"
+                                                th:utext="${warehouse.getName() + '&lt;br /&gt;' + ' Stock: '
+                                                + warehouse.stockOfItem(item.getId())}"></li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                            <form th:action="@{'/items/delete/{id}' (id=${item.getId()})}"
+                                                  th:method="DELETE">
+                                                <button type="submit"
+                                                        class="btn btn-sm btn-danger delete-product">
+                                                    <i class="fa fa-trash"></i> Delete
+                                                </button>
+                                            </form>
+                                        </th:block>
+                                        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                                            <a th:href="@{'/items/edit/{id}' (id=${item.getId()})}"
+                                               class="btn btn-sm btn-info edit-product">
+                                                Edit
+                                            </a>
+                                        </th:block>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <form th:switch="${item.checkAvailability()}" th:action="@{'/shopping-cart/add-product/{id}' (id=${item.getId()})}"
+                              th:method="POST"
+                              sec:authorize="hasRole('ROLE_USER')">
+                            <div class="form-group">
+                                <select th:if="${item.checkAvailability()}" id="fromWarehouse" name="fromWarehouse" class="form-control">
+                                    <option th:each="house: ${item.getWarehouses()}" th:value="${house.getId()}" th:text="${house.getName()}"></option>
+                                </select>
+                            </div>
+                            <button th:case="true" type="submit"
+                                    class="btn btn-primary btn-sm mr-1 mb-2">
+                                <i  class="fa fa-shopping-cart"></i> Add product to cart
+                            </button>
+                            <button th:case="false" disabled class="btn btn-sm btn-primary cart-product">
+                                <i  class="fa fa-shopping-cart"></i> Add product to cart
                             </button>
                         </form>
-                    </th:block>
-                    <th:block sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a th:href="@{'/items/edit/{id}' (id=${item.getId()})}"
-                           class="btn btn-sm btn-info edit-product">
-                            <i class="fa">Edit</i>
-                        </a>
-                    </th:block>
-                    <form th:switch="${item.checkAvailability()}" th:action="@{'/shopping-cart/add-product/{id}' (id=${item.getId()})}"
-                          th:method="POST"
-                          sec:authorize="hasRole('ROLE_USER')">
-                        <div class="form-group">
-                            <select th:if="${item.checkAvailability()}" id="fromWarehouse" name="fromWarehouse" class="form-control">
-                                <option th:each="house: ${item.getWarehouses()}" th:value="${house.getId()}" th:text="${house.getName()}"></option>
-                            </select>
-                        </div>
-                        <button th:case="true" type="submit"
-                                class="btn btn-primary btn-sm mr-1 mb-2">
-                            <i  class="fa fa-shopping-cart"></i>Add product to cart
-                        </button>
-                        <button th:case="false" disabled class="btn btn-sm btn-primary cart-product">
-                            <i  class="fa fa-shopping-cart"></i>Add product to cart
-                        </button>
-                    </form>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </div>
+
+            </section>
 </div>
