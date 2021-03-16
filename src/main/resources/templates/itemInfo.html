@@ -42,7 +42,7 @@
                             <table class="table table-sm table-borderless">
                                 <tbody>
                                 <tr>
-                                    <td class="pl-0 pb-0 w-25">Available in:</td>
+                                    <td class="pl-0 pb-0 w-25" th:if="${item.getAvailability()}">Available in:</td>
                                     <td  class="pb-0" sec:authorize="hasRole('ROLE_ADMIN')">Admin controls</td>
                                 </tr>
                                 <tr>
