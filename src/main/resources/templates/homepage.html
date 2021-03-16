@@ -1,3 +1,39 @@
+<style>
+
+    .feature {
+        position: relative;
+    }
+
+    .feature .feature-col {
+        margin-bottom: 30px;
+    }
+
+    .feature .feature-content {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding: 30px 15px;
+        text-align: center;
+        background: #ffffff;
+    }
+
+    .feature .feature-content i {
+        color: #0275d8;
+        font-size: 60px;
+        margin-bottom: 30px;
+    }
+
+    .feature .feature-content h2 {
+        font-size: 18px;
+    }
+
+    .feature .feature-content p {
+        font-size: 15px;
+        margin: 0;
+    }
+
+
+</style>
 
 <div xmlns:th="http://www.thymeleaf.org">
     <section class="jumbotron text-center">
@@ -52,6 +88,51 @@
                     </a>
                 </div>
             </div>
+
+            <!-- Feature Start-->
+            <div class="feature">
+                <div class="container-fluid">
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-6 feature-col">
+                            <div class="feature-content">
+                                <i class="fab fa-cc-mastercard"></i>
+                                <h2>Secure Payment</h2>
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur elit
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 feature-col">
+                            <div class="feature-content">
+                                <i class="fa fa-truck"></i>
+                                <h2>Worldwide Delivery</h2>
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur elit
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 feature-col">
+                            <div class="feature-content">
+                                <i class="fa fa-sync-alt"></i>
+                                <h2>90 Days Return</h2>
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur elit
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 feature-col">
+                            <div class="feature-content">
+                                <i class="fa fa-comments"></i>
+                                <h2>24/7 Support</h2>
+                                <p>
+                                    Lorem ipsum dolor sit amet consectetur elit
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Feature End-->
         </div>
     </div>
 </div>
