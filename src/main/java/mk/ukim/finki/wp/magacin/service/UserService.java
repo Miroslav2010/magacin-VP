@@ -1,5 +1,6 @@
 package mk.ukim.finki.wp.magacin.service;
 
+import mk.ukim.finki.wp.magacin.models.Order;
 import mk.ukim.finki.wp.magacin.models.User;
 
 import java.util.List;
@@ -27,4 +28,5 @@ public interface UserService {
     void deleteUser(String username);
     User changePassword(String username, String oldpass, String newpass);
     boolean checkPassword(String username, String pass);
+    List<Order> listAllUserOrders(String username);
 }

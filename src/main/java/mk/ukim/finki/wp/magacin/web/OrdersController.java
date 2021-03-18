@@ -54,7 +54,8 @@ public class OrdersController {
     public String placeOrder(@RequestParam String firstName, @RequestParam String lastName,
                                @RequestParam String address, @RequestParam String email,
                                @RequestParam String country, @RequestParam String city,
-                               @RequestParam String zipCode, HttpServletRequest request){
+                               @RequestParam String zipCode, @RequestParam Double totalPrice,
+                               HttpServletRequest request){
         ShoppingCart cart = this.shoppingCartService.getShoppingCart(request.getRemoteUser());
         List<ShoppingCartItem> items = cart.getShoppingCartItems();
         List<Long> itemsList = new ArrayList<>();
@@ -62,7 +63,7 @@ public class OrdersController {
             itemsList.add(item.getId());
         }
         this.shoppingCartService.deleteAllItems(cart.getId());
-        this.orderService.placeOrder(firstName,lastName,email,address,country,city,zipCode,itemsList,request.getRemoteUser());
+        this.orderService.placeOrder(firstName,lastName,email,address,country,city,zipCode,totalPrice,itemsList,request.getRemoteUser());
         return "redirect:/";
     }
     @GetMapping
@@ -91,4 +92,32 @@ public class OrdersController {
         this.orderService.delete(id);
         return "redirect:/orders";
     }
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/myorders")
+    public String showMyOrders(Model model, HttpServletRequest request){
+        model.addAttribute("orders", this.userService.listAllUserOrders(this.userService.getUser(request.getRemoteUser()).getUsername()));
+        model.addAttribute("bodyContent", "myorders");
+        return "master-template";
+    }
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @GetMapping("/myorders/{id}")
+    public String showSpecificOrder(@PathVariable Long id, Model model){
+        model.addAttribute("order", this.orderService.findById(id));
+        model.addAttribute("pending", OrderStatus.PENDING);
+        model.addAttribute("bodyContent", "userorder");
+        return "master-template";
+    }
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PostMapping("/myorders/{id}")
+    public String userOrderDetailsChange(@PathVariable Long id, @RequestParam(required = false) String username, @RequestParam String firstName, @RequestParam String lastName, @RequestParam String address, @RequestParam String email, @RequestParam String city, @RequestParam String country, @RequestParam  String zipcode, @RequestParam(required = false) OrderStatus status){
+        this.orderService.updateOrder(id, firstName, lastName, address, email, city, country, zipcode, OrderStatus.PENDING);
+        return "redirect:/orders/myorders";
+    }
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PostMapping("/myorders/{id}/cancel")
+    public String cancelOrder(@PathVariable Long id){
+        this.orderService.cancelOrder(id);
+        return "redirect:/orders/myorders";
+    }
+
 }

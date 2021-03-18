@@ -60,7 +60,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order placeOrder(String firstName, String lastName, String email,
                             String address, String country, String city,
-                            String zipCode, List<Long> items, String username) {
+                            String zipCode,Double totalPrice, List<Long> items, String username) {
         for (Long itemId: items) {
             ShoppingCartItem item = this.shoppingCartItemRepository.findById(itemId)
                     .orElseThrow(InvalidItemIdException::new);
@@ -71,7 +71,7 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         Order order = new Order(this.userRepository.findByUsername(username).orElseThrow(UserNotFoundException::new),
-                this.shoppingCartItemRepository.findAllById(items),firstName,lastName,email,address,country,city,zipCode);
+                this.shoppingCartItemRepository.findAllById(items),firstName,lastName,email,address,country,city,zipCode, totalPrice);
         this.orderRepository.save(order);
         return order;
     }
@@ -105,5 +105,12 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> listAll() {
         return this.orderRepository.findAll();
+    }
+
+    @Override
+    public Order cancelOrder(Long id) {
+        Order order = this.findById(id);
+        order.setStatus(OrderStatus.CANCELED);
+        return this.orderRepository.save(order);
     }
 }

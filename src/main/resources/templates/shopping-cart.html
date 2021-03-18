@@ -36,7 +36,7 @@
                             <td style="width: 8rem;">
                                 <form method="post" th:action="@{'/shopping-cart/changequantity/{id}' (id=${product.getId()})}">
                                     <input class="form-control" name="quantity" type="number" min="1"
-                                           th:max="${product.getWarehouse().stockOfItem(product.getItem().getId())}" th:value="${product.getQuantity()}" onchange="this.form.submit()">
+                                           th:max="${product.getWarehouse().stockOfItem(product.getItem().getId())}" th:value="${product.getQuantity()}" onkeydown="return false" onchange="this.form.submit()">
                                 </form>
                             </td>
                             <td>

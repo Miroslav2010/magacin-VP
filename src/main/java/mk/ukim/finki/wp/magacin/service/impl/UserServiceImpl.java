@@ -1,5 +1,6 @@
 package mk.ukim.finki.wp.magacin.service.impl;
 
+import mk.ukim.finki.wp.magacin.models.Order;
 import mk.ukim.finki.wp.magacin.models.User;
 import mk.ukim.finki.wp.magacin.models.exceptions.InvalidUsernameOrPasswordException;
 import mk.ukim.finki.wp.magacin.models.exceptions.PasswordsDoNotMatchException;
@@ -125,6 +126,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (passwordEncoder.matches(pass, user.getPassword()))
             return true;
         return false;
+    }
+
+    @Override
+    public List<Order> listAllUserOrders(String username) {
+        User user = this.userRepository.findById(username).orElseThrow(InvalidUsernameOrPasswordException::new);
+        return user.getOrders();
     }
 
 }

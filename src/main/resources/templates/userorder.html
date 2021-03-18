@@ -1,0 +1,216 @@
+<div xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">MAGACIN VP</h1>
+            <h3 class="jumbotron-heading">
+                <th:block th:text="${'Order ID: ' + order?.getId()}"></th:block>
+            </h3>
+        </div>
+    </section>
+    <div class="container mb-4">
+        <div class="row">
+            <form method="POST">
+                <div class="row">
+                    <input type="hidden" name="id"  th:value="${order.getId()}">
+                    <div class="form-group col-4">
+                        <label for="username">username</label>
+                        <input type="text"
+                               class="form-control"
+                               id="username"
+                               name="username"
+                               th:value="${order?.getUser().getUsername()}"
+                               required
+                               disabled>
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="firstName">First Name</label>
+                        <input th:if="${order.getStatus() == pending}"
+                                type="text"
+                               class="form-control"
+                               id="firstName"
+                               name="firstName"
+                               th:value="${order?.getFirstName()}"
+                               required
+                               placeholder="Last Name">
+                        <input th:if="${order.getStatus() != pending}"
+                               type="text"
+                               class="form-control"
+                               id="firstName"
+                               name="firstName"
+                               th:value="${order?.getFirstName()}"
+                               required
+                               disabled
+                               placeholder="Last Name">
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="lastName">Last Name</label>
+                        <input th:if="${order.getStatus() == pending}"
+                                type="text"
+                               class="form-control"
+                               id="lastName"
+                               name="lastName"
+                               th:value="${order?.getLastName()}"
+                               required
+                               placeholder="Last Name">
+                        <input th:if="${order.getStatus() != pending}"
+                               type="text"
+                               class="form-control"
+                               id="lastName"
+                               name="lastName"
+                               th:value="${order?.getLastName()}"
+                               required
+                               disabled
+                               placeholder="Last Name">
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="email">Email</label>
+                        <input th:if="${order.getStatus() == pending}"
+                                type="text"
+                               class="form-control"
+                               id="email"
+                               name="email"
+                               th:value="${order?.getEmail()}"
+                               required
+                               placeholder="Email">
+                        <input th:if="${order.getStatus() != pending}"
+                               type="text"
+                               class="form-control"
+                               id="email"
+                               name="email"
+                               th:value="${order?.getEmail()}"
+                               required
+                               disabled
+                               placeholder="Email">
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="address">Address</label>
+                        <input th:if="${order.getStatus() == pending}"
+                                type="text"
+                               class="form-control"
+                               id="address"
+                               name="address"
+                               th:value="${order?.getAddress()}"
+                               required
+                               placeholder="Address">
+                        <input th:if="${order.getStatus() != pending}"
+                               type="text"
+                               class="form-control"
+                               id="address"
+                               name="address"
+                               th:value="${order?.getAddress()}"
+                               required
+                               disabled
+                               placeholder="Address">
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="city">City</label>
+                        <input th:if="${order.getStatus() == pending}"
+                                type="text"
+                               class="form-control"
+                               id="city"
+                               name="city"
+                               th:value="${order?.getCity()}"
+                               required
+                               placeholder="City">
+                        <input th:if="${order.getStatus() != pending}"
+                               type="text"
+                               class="form-control"
+                               id="city"
+                               name="city"
+                               th:value="${order?.getCity()}"
+                               required
+                               disabled
+                               placeholder="City">
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="country">Country</label>
+                        <input th:if="${order.getStatus() == pending}"
+                                type="text"
+                               class="form-control"
+                               id="country"
+                               name="country"
+                               th:value="${order?.getCountry()}"
+                               required
+                               placeholder="Country">
+                        <input th:if="${order.getStatus() != pending}"
+                               type="text"
+                               class="form-control"
+                               id="country"
+                               name="country"
+                               th:value="${order?.getCountry()}"
+                               required
+                               disabled
+                               placeholder="Country">
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="zipcode">Zip Code</label>
+                        <input th:if="${order.getStatus() == pending}"
+                                type="text"
+                               class="form-control"
+                               id="zipcode"
+                               name="zipcode"
+                               th:value="${order?.getZipCode()}"
+                               required
+                               placeholder="Zipcode">
+                        <input th:if="${order.getStatus() != pending}"
+                               type="text"
+                               class="form-control"
+                               id="zipcode"
+                               name="zipcode"
+                               th:value="${order?.getZipCode()}"
+                               required
+                               disabled
+                               placeholder="Zipcode">
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="status">Status</label>
+                        <input type="text"
+                               class="form-control"
+                               id="status"
+                               name="status"
+                               th:value="${order?.getStatus()}"
+                               required
+                               placeholder="status"
+                               disabled>
+
+                    </div>
+                    <br>
+                </div>
+                <button th:if="${order.getStatus() == pending}" id="submit" type="submit" class="btn btn-primary">Change Order</button>
+                <a type="button" class="btn btn-primary" href="/orders/myorders">Back</a>
+
+            </form>
+        </div>
+        <div class="row" style="padding-top: 15px">
+            <div class="col-3" style="padding-left: 0px">
+                <form method="POST" th:if="${order.getStatus() == pending}" th:action="@{'/orders/myorders/{id}/cancel' (id=${order.getId()})}">
+                    <button type="submit"
+                            class="btn btn-md btn-danger delete-product">
+                        <i class="fa fa-trash"></i>Cancel Order
+                    </button>
+                </form>
+            </div>
+            <div class="col-6">
+                <p>Ordered items:</p>
+                <table class="table table-striped" id="tabela">
+                    <thead>
+                    <tr>
+                        <th>Item name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item:${order.getItems()}">
+                        <td th:text="${item.getItem().getName()}"></td>
+                        <td th:text="${item.getQuantity()}"></td>
+                        <td th:text="${item.getQuantity()*item.getItem().getPrice()}"></td>
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>

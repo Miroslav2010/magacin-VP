@@ -1,0 +1,51 @@
+<div xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">MAGACIN VP</h1>
+            <h3 class="jumbotron-heading">My Orders</h3>
+        </div>
+    </section>
+    <div class="container mb-4">
+        <div class="container mb-4">
+            <div class="row">
+                <div class="col-12" th:if="${orders.size() > 0}">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="tabela">
+                            <thead>
+                            <tr>
+                                <th scope="col">Order ID</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Total Price</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="order : ${orders}" class="product">
+
+                                <td th:text="${order.getId()}"></td>
+                                <td th:text="${order.exactDate()}"></td>
+                                <td th:text="${order.getStatus()}"></td>
+                                <td th:text="${order.getTotalPrice()}"></td>
+                                <td style="max-width: 60px">
+                                    <a th:href="@{'/orders/myorders/{id}' (id=${order.getId()})}"
+                                       class="btn btn-sm btn-info edit-product">
+                                        Details
+                                    </a>
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                        <script th:inline="javascript">
+                            $(document).ready( function () {
+                                $('#tabela').DataTable();
+                            } );
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

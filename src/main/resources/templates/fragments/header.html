@@ -16,6 +16,9 @@
                     <li class="nav-item mr-auto">
                         <a class="nav-link" href="/warehouses">Warehouses</a>
                     </li>
+                    <li class="nav-item mr-auto" sec:authorize="hasRole('ROLE_USER')">
+                        <a class="nav-link" href="/orders/myorders">My Orders</a>
+                    </li>
                     <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Admin controls
