@@ -1,9 +1,6 @@
 package mk.ukim.finki.wp.magacin.web;
 
-import mk.ukim.finki.wp.magacin.models.Item;
-import mk.ukim.finki.wp.magacin.models.ShoppingCart;
-import mk.ukim.finki.wp.magacin.models.ShoppingCartItem;
-import mk.ukim.finki.wp.magacin.models.User;
+import mk.ukim.finki.wp.magacin.models.*;
 import mk.ukim.finki.wp.magacin.models.enumerations.OrderStatus;
 import mk.ukim.finki.wp.magacin.service.ItemService;
 import mk.ukim.finki.wp.magacin.service.OrderService;
@@ -15,7 +12,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -65,6 +67,22 @@ public class OrdersController {
         this.shoppingCartService.deleteAllItems(cart.getId());
         this.orderService.placeOrder(firstName,lastName,email,address,country,city,zipCode,totalPrice,itemsList,request.getRemoteUser());
         return "redirect:/";
+    }
+    @GetMapping("/getorderspdf")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void getOrdersPdf(HttpServletResponse response) throws IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=orders_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        List<Order> orders = orderService.listAll();
+
+        OrdersPDFExporter exporter = new OrdersPDFExporter(orders);
+        exporter.export(response);
     }
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
