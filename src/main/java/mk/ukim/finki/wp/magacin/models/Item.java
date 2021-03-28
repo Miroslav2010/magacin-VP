@@ -145,4 +145,12 @@ public class Item {
         return false;
     }
 
+    public int getTotalQuantity(){
+        int sum = 0;
+        for (EachItem item: eachItemList){
+            sum+= item.getQuantity();
+        }
+        return sum;
+    }
+
 }

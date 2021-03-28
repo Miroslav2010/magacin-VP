@@ -1,0 +1,51 @@
+<div xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">MAGACIN VP</h1>
+            <h3 class="jumbotron-heading">Reports of low stock</h3>
+        </div>
+    </section>
+    <div class="container mb-4">
+        <div class="container mb-4">
+            <div class="row">
+                <div class="col-12" th:if="${reports.size() > 0}">
+                    <div class="table-responsive">
+                        <a href="/stock"
+                           class="btn btn-sm btn-info edit-product">
+                            Go to Add Stock
+                        </a>
+                        <table class="table table-striped" id="tabela">
+                            <thead>
+                            <tr>
+                                <th scope="col">Item</th>
+                                <th scope="col">Date of report</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                            </thead>
+                            <br/>
+                            <tbody>
+                            <tr th:each="report : ${reports}" class="product">
+                                <td th:text="${report.getItemName()}"></td>
+                                <td th:text="${report.exactDate()}"></td>
+                                <td><form th:action="@{'/reports/delete/{id}' (id=${report.getId()})}"
+                                          th:method="DELETE">
+                                    <button type="submit"
+                                            class="btn btn-md btn-danger delete-product">
+                                        <i class="fa">Delete</i>
+                                    </button>
+                                </form></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <script th:inline="javascript">
+                            $(document).ready( function () {
+                                $('#tabela').DataTable();
+                            } );
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

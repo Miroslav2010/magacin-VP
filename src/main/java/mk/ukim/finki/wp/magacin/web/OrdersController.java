@@ -2,10 +2,7 @@ package mk.ukim.finki.wp.magacin.web;
 
 import mk.ukim.finki.wp.magacin.models.*;
 import mk.ukim.finki.wp.magacin.models.enumerations.OrderStatus;
-import mk.ukim.finki.wp.magacin.service.ItemService;
-import mk.ukim.finki.wp.magacin.service.OrderService;
-import mk.ukim.finki.wp.magacin.service.ShoppingCartService;
-import mk.ukim.finki.wp.magacin.service.UserService;
+import mk.ukim.finki.wp.magacin.service.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,12 +24,14 @@ public class OrdersController {
     private final OrderService orderService;
     private final ItemService itemService;
     private final UserService userService;
+    private final ReportService reportService;
 
-    public OrdersController(ShoppingCartService shoppingCartService, OrderService orderService, ItemService itemService, UserService userService) {
+    public OrdersController(ShoppingCartService shoppingCartService, OrderService orderService, ItemService itemService, UserService userService, ReportService reportService) {
         this.shoppingCartService = shoppingCartService;
         this.orderService = orderService;
         this.itemService = itemService;
         this.userService = userService;
+        this.reportService = reportService;
     }
 
     @GetMapping("/checkout")
@@ -66,6 +65,10 @@ public class OrdersController {
         }
         this.shoppingCartService.deleteAllItems(cart.getId());
         this.orderService.placeOrder(firstName,lastName,email,address,country,city,zipCode,totalPrice,itemsList,request.getRemoteUser());
+        for (ShoppingCartItem item: items){
+            if(item.getItem().getTotalQuantity() <= 5)
+                this.reportService.generateReport(item.getItem().getName());
+        }
         return "redirect:/";
     }
     @GetMapping("/getorderspdf")
