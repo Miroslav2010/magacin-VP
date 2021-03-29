@@ -23,6 +23,7 @@ public class ReportController {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String getReports(Model model){
         model.addAttribute("reports", this.reportService.getAllReports());
         model.addAttribute("bodyContent", "reports");
