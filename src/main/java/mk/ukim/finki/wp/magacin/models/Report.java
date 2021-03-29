@@ -1,12 +1,11 @@
 package mk.ukim.finki.wp.magacin.models;
 
-import lombok.Data;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@Data
+
 @Entity
 public class Report {
     @Id
@@ -29,5 +28,29 @@ public class Report {
     }
 
     public Report() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

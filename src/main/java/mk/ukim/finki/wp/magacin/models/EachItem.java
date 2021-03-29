@@ -1,10 +1,8 @@
 package mk.ukim.finki.wp.magacin.models;
 
-import lombok.Data;
 
 import javax.persistence.*;
 
-@Data
 @Entity
 public class EachItem {
 
@@ -29,5 +27,35 @@ public class EachItem {
         this.quantity = quantity;
     }
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public Warehouse getWarehouse() {
+        return warehouse;
+    }
+
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
 }
