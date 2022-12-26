@@ -1,4 +1,4 @@
-<div xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<div xmlns:th="http://www.thymeleaf.org">
     <section class="jumbotron text-center">
         <div class="container">
             <h1 class="jumbotron-heading">MAGACIN VP</h1>
@@ -177,12 +177,12 @@
                     <br>
                 </div>
                 <button th:if="${order.getStatus() == pending}" id="submit" type="submit" class="btn btn-primary">Change Order</button>
-                <a type="button" class="btn btn-primary" href="/orders/myorders">Back</a>
+                <a type="button" class="btn btn-primary" href="/orders/my-orders">Back</a>
 
             </form>
         </div>
         <div class="row" style="padding-top: 15px">
-            <div class="col-3" style="padding-left: 0px">
+            <div class="col-3" style="padding-left: 0">
                 <form method="POST" th:if="${order.getStatus() == pending}" th:action="@{'/orders/myorders/{id}/cancel' (id=${order.getId()})}">
                     <button type="submit"
                             class="btn btn-md btn-danger delete-product">

@@ -1,22 +1,18 @@
 package mk.ukim.finki.wp.magacin.service;
 
-import mk.ukim.finki.wp.magacin.models.Category;
 import mk.ukim.finki.wp.magacin.models.Item;
-import mk.ukim.finki.wp.magacin.models.Manufacturer;
-import mk.ukim.finki.wp.magacin.repository.ItemRepository;
+import mk.ukim.finki.wp.magacin.service.command.CreateItemCommand;
+import mk.ukim.finki.wp.magacin.service.command.UpdateItemCommand;
 
 import java.util.List;
 
 public interface ItemService {
     List<Item> listAll();
-    Item findbyId(Long id);
-    Item create(String name, String description, String imageUrl, Boolean availability, Double price, Long categoryId, Long manufacturerId);
-    Item update(Long id, String name, String description, String imageUrl, Boolean availability, Double price, Long categoryId, Long manufacturerId);
-    Item delete(Long id);
-    Item toggleAvailability(Long id);
-    Item setAvailability(Long id,Boolean availability);
+    Item findById(Long id);
+    void create(CreateItemCommand createItemCommand);
+    void update(UpdateItemCommand updateItemCommand);
+    void delete(Long id);
     List<String> getItemNames();
-    List<Item> searchItemsByName(String search);
-    List<Item> getItemsByCategoryManufacturerAndAvailability(Long categoryId,Long manufacturerId,Boolean availability);
-    List<Item> findFirstThree();
+    List<Item> searchItemsByName(String query);
+    List<Item> getItemsByCategoryAndManufacturer(Long categoryId, Long manufacturerId, boolean available);
 }

@@ -17,7 +17,7 @@ public class Warehouse {
     Double lon;
 
     @OneToMany(mappedBy = "warehouse")
-    List<EachItem> eachItems;
+    List<ItemInWarehouse> itemInWarehouses;
 
     public Warehouse() {
     }
@@ -60,19 +60,19 @@ public class Warehouse {
         this.lon = lon;
     }
 
-    public List<EachItem> getEachItems() {
-        return eachItems;
+    public List<ItemInWarehouse> getEachItems() {
+        return itemInWarehouses;
     }
 
-    public void setEachItems(List<EachItem> eachItems) {
-        this.eachItems = eachItems;
+    public void setEachItems(List<ItemInWarehouse> itemInWarehouses) {
+        this.itemInWarehouses = itemInWarehouses;
     }
 
     public Integer stockOfItem(Long itemId){
         Integer sum = 0;
-        for (EachItem eachItem: eachItems) {
-            if (eachItem.getItem().getId() == itemId)
-                sum+= eachItem.getQuantity();
+        for (ItemInWarehouse itemInWarehouse : itemInWarehouses) {
+            if (itemInWarehouse.getItem().getId() == itemId)
+                sum+= itemInWarehouse.getQuantity();
         }
         return sum;
     }

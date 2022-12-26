@@ -1,7 +1,7 @@
 package mk.ukim.finki.wp.magacin.service.impl;
 
 import mk.ukim.finki.wp.magacin.models.DisplayWarehouse;
-import mk.ukim.finki.wp.magacin.models.EachItem;
+import mk.ukim.finki.wp.magacin.models.ItemInWarehouse;
 import mk.ukim.finki.wp.magacin.models.Warehouse;
 import mk.ukim.finki.wp.magacin.repository.DisplayWarehouseRepository;
 import mk.ukim.finki.wp.magacin.repository.EachItemRepository;
@@ -61,7 +61,7 @@ public class WarehouseServiceImpl implements WarehouseService {
     public Warehouse delete(Long id) {
         Warehouse warehouse = this.warehouseRepository.findById(id).get();
         this.displayWarehouseRepository.deleteById(id);
-        for (EachItem item: warehouse.getEachItems()) {
+        for (ItemInWarehouse item: warehouse.getEachItems()) {
             this.eachItemRepository.delete(item);
         }
         this.warehouseRepository.deleteById(id);

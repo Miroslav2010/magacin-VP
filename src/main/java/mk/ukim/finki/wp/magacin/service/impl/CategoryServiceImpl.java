@@ -1,7 +1,7 @@
 package mk.ukim.finki.wp.magacin.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import mk.ukim.finki.wp.magacin.models.Category;
-import mk.ukim.finki.wp.magacin.models.Item;
 import mk.ukim.finki.wp.magacin.models.exceptions.InvalidCategoryIdException;
 import mk.ukim.finki.wp.magacin.repository.CategoryRepository;
 import mk.ukim.finki.wp.magacin.repository.ItemRepository;
@@ -11,15 +11,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final ItemRepository itemRepository;
-
-    public CategoryServiceImpl(CategoryRepository categoryRepository, ItemRepository itemRepository) {
-        this.categoryRepository = categoryRepository;
-        this.itemRepository = itemRepository;
-    }
 
     @Override
     public List<Category> listAll() {
@@ -27,7 +23,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category findbyId(Long id) {
+    public Category findById(Long id) {
         return this.categoryRepository.findById(id).orElseThrow(InvalidCategoryIdException::new);
     }
 
@@ -37,19 +33,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category update(Long id, String name) {
-        Category category = this.findbyId(id);
-        category.setName(name);
-        return this.categoryRepository.save(category);
-    }
-
-    @Override
-    public Category delete(Long id) {
-        Category category = this.findbyId(id);
-        for (Item item : category.getItems()) {
-            this.itemRepository.delete(item);
-        }
+    public void delete(Long id) {
+        Category category = this.findById(id);
+        this.itemRepository.deleteAll(category.getItems());
         this.categoryRepository.delete(category);
-        return category;
     }
 }

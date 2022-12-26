@@ -17,7 +17,7 @@
                         <a class="nav-link" href="/warehouses">Warehouses</a>
                     </li>
                     <li class="nav-item mr-auto" sec:authorize="hasRole('ROLE_USER')">
-                        <a class="nav-link" href="/orders/myorders">My Orders</a>
+                        <a class="nav-link" href="/orders/my-orders">My Orders</a>
                     </li>
                     <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -72,7 +72,7 @@
                 <ul class="nav navbar-nav navbar-right">
 
                     <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a class="nav-link" href="/userdetails">
+                        <a class="nav-link" href="/user-details">
                             <th:block th:if="${#request.getRemoteUser() != null}"
                                       th:text="${#request.getRemoteUser()}">
                             </th:block>
