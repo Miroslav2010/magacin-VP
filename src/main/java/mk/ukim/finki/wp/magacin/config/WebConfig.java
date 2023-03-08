@@ -13,29 +13,31 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class WebConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    UserDetailsService userService;
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/","/login","/register","/items/**","/warehouses/**","/search/**", "/css/**","/js/**","/lib/**","/users/**", "/userdetails/**", "/orders/**").permitAll()
-                .antMatchers("/shopping-cart/**", "/orders/checkout").hasRole("USER")
-                .anyRequest().hasRole("ADMIN")
-                .and()
-                .formLogin()
-                .loginPage("/login")
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .clearAuthentication(true)
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/");
-    }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(this.userService);
-    }
+  @Autowired
+  UserDetailsService userService;
+
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.csrf().disable()
+        .authorizeRequests()
+        .antMatchers("/", "/login", "/register", "/items/**", "/warehouses/**", "/search/**", "/css/**", "/js/**", "/lib/**", "/users/**", "/user-details/**", "/orders/**").permitAll()
+        .antMatchers("/shopping-cart/**", "/orders/checkout").hasRole("USER")
+        .anyRequest().hasRole("ADMIN")
+        .and()
+        .formLogin()
+        .loginPage("/login")
+        .and()
+        .logout()
+        .logoutUrl("/logout")
+        .clearAuthentication(true)
+        .invalidateHttpSession(true)
+        .deleteCookies("JSESSIONID")
+        .logoutSuccessUrl("/");
+  }
+
+  @Override
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    auth.userDetailsService(this.userService);
+  }
 }

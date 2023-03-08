@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User register(String username, String password, String repeatPassword, String role) {
+    public void register(String username, String password, String repeatPassword, String role) {
         if (username==null || username.isEmpty()  || password==null || password.isEmpty())
             throw new InvalidUsernameOrPasswordException();
         if (!password.equals(repeatPassword))
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if(this.userRepository.findByUsername(username).isPresent())
             throw new UsernameAlreadyExistsException(username);
         User user = new User(username,passwordEncoder.encode(password),role);
-        return userRepository.save(user);
+      userRepository.save(user);
     }
 
     @Override
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User updateUser(String username, String password, String firstName, String lastName, String address, String email, String city, String country, String zipcode) {
+    public void updateUser(String username, String password, String firstName, String lastName, String address, String email, String city, String country, String zipcode) {
         User user = userRepository.findByUsername(username).orElseThrow(InvalidUsernameOrPasswordException::new);
         if (passwordEncoder.matches(password, user.getPassword())) {
             user.setFirstName(firstName);
@@ -72,11 +72,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             user.setZipcode(zipcode);
             this.userRepository.save(user);
         }
-        return user;
     }
 
     @Override
-    public User adminUserUpdate(String username, String firstName, String lastName, String address, String email, String city, String country, String zipcode) {
+    public void adminUserUpdate(String username, String firstName, String lastName, String address, String email, String city, String country, String zipcode) {
         User user = userRepository.findByUsername(username).orElseThrow(InvalidUsernameOrPasswordException::new);
         user.setFirstName(firstName);
         user.setLastName(lastName);
@@ -88,7 +87,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         user.setCountry(country);
         user.setZipcode(zipcode);
         this.userRepository.save(user);
-        return user;
     }
 
     @Override
@@ -112,12 +110,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User changePassword(String username, String oldpass, String newpass) {
+    public void changePassword(String username, String oldPassword, String newPassword) {
         User user = userRepository.findByUsername(username).orElseThrow(InvalidUsernameOrPasswordException::new);
-        if (passwordEncoder.matches(oldpass, user.getPassword())) {
-            user.setPassword(passwordEncoder.encode(newpass));
+        if (passwordEncoder.matches(oldPassword, user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(newPassword));
         }
-        return this.userRepository.save(user);
+        this.userRepository.save(user);
     }
 
     @Override

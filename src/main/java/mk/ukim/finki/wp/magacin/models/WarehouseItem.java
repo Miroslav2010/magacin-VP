@@ -1,5 +1,6 @@
 package mk.ukim.finki.wp.magacin.models;
 
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,26 +9,23 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
-public class ShoppingCartItem {
+public class WarehouseItem {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
-  private int quantity;
 
   @ManyToOne
   private Item item;
 
   @ManyToOne
-  private ShoppingCart shoppingCart;
-
-  @ManyToOne
   private Warehouse warehouse;
 
-  public ShoppingCartItem(int quantity, Item item, ShoppingCart shoppingCart, Warehouse warehouse) {
-    this.quantity = quantity;
+  private int quantity;
+
+  public WarehouseItem(Item item, Warehouse warehouse, int quantity) {
     this.item = item;
-    this.shoppingCart = shoppingCart;
     this.warehouse = warehouse;
+    this.quantity = quantity;
   }
 }

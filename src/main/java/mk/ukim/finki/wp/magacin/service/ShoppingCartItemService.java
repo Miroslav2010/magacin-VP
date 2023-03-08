@@ -5,7 +5,9 @@ import mk.ukim.finki.wp.magacin.models.ShoppingCart;
 import mk.ukim.finki.wp.magacin.models.ShoppingCartItem;
 
 public interface ShoppingCartItemService {
-    ShoppingCartItem findById(Long id);
-    ShoppingCartItem create(Integer quantity, Item item, ShoppingCart shoppingCart,Long warehouse);
-    ShoppingCartItem updateQuantityOfItem(Long id, Integer quantity);
+  ShoppingCartItem findById(Long id);
+
+  ShoppingCartItem create(Integer quantity, Item item, ShoppingCart shoppingCart, Long warehouse);
+
+  void updateQuantityOfItem(Long id, Integer quantity);
 }

@@ -1,0 +1,38 @@
+openapi: 3.0.3
+info:
+  title: magacin-VP application
+  description: 'OpenAPI specification for magacin-VP application'
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io
+tags:
+  - name: authentication
+    description: User authentication
+paths:
+  /api/login:
+    post:
+      tags:
+        - authentication
+      summary: Login user
+      description: Authenticate user from username and password
+      operationId: login
+      requestBody:
+        description: Authenticate user from username and password
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequestBody'
+        required: true
+      responses:
+        201:
+          description: User successfully authenticated
+components:
+  schemas:
+    LoginRequestBody:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string

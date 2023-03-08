@@ -1,56 +1,28 @@
 package mk.ukim.finki.wp.magacin.models;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.text.SimpleDateFormat;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
-
+@Data
 @Entity
+@NoArgsConstructor
 public class Report {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    String itemName;
+  private String itemName;
 
-    Date date;
+  private Date date;
 
-    public String exactDate(){
-        SimpleDateFormat formatter= new SimpleDateFormat("dd-MM-yyyy");
-        return formatter.format(this.date);
-
-    }
-
-    public Report(String itemName) {
-        this.itemName = itemName;
-        this.date = new Date(System.currentTimeMillis());
-    }
-
-    public Report() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getItemName() {
-        return itemName;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-
-    public Date getDate() {
-        return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
+  public Report(String itemName) {
+    this.itemName = itemName;
+    this.date = new Date(System.currentTimeMillis());
+  }
 }
