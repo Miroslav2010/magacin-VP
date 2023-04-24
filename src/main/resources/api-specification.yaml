@@ -9,6 +9,8 @@ externalDocs:
 tags:
   - name: authentication
     description: User authentication
+  - name: category
+    description: Item categorization
 paths:
   /api/login:
     post:
@@ -27,6 +29,20 @@ paths:
       responses:
         201:
           description: User successfully authenticated
+  /api/category:
+    get:
+      tags:
+        - category
+      summary: Get all categories
+      description: List all categories that exist on the system
+      operationId: getCategories
+      responses:
+        200:
+          description: List of all existing categories on the system
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoriesResponseBody'
 components:
   schemas:
     LoginRequestBody:
@@ -34,5 +50,24 @@ components:
       properties:
         username:
           type: string
+          description: The username entered by the user
         password:
           type: string
+          description: The password entered by the user
+    CategoryResource:
+      type: object
+      properties:
+        id:
+          type: number
+          format: long
+          description: Unique identifier for the category
+        name:
+          type: string
+          description: Used for displaying the category
+    CategoriesResponseBody:
+      type: object
+      properties:
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/CategoryResource'
