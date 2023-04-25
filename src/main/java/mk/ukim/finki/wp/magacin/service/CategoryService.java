@@ -1,17 +1,18 @@
 package mk.ukim.finki.wp.magacin.service;
 
 import mk.ukim.finki.wp.magacin.models.Category;
-import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Service
 public interface CategoryService {
+
   List<Category> listAll();
 
-  Category findById(Long id);
+  Category findById(@NotNull Long id);
 
-  void create(String name);
+  void create(@NotBlank String name);
 
-  void delete(Long id);
+  void delete(@NotNull Long id);
 }

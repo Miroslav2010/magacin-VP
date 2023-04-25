@@ -7,10 +7,12 @@ import mk.ukim.finki.wp.magacin.repository.CategoryRepository;
 import mk.ukim.finki.wp.magacin.repository.ItemRepository;
 import mk.ukim.finki.wp.magacin.service.CategoryService;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
 @Service
+@Validated
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 

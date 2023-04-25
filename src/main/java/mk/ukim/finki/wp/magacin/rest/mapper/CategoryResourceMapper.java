@@ -10,7 +10,7 @@ import java.util.List;
 import static org.mapstruct.InjectionStrategy.CONSTRUCTOR;
 
 @Mapper(componentModel = "spring", injectionStrategy = CONSTRUCTOR)
-public interface ResourceMapper {
+public interface CategoryResourceMapper {
 
   default CategoriesResponseBody toResource(List<Category> categories) {
     return new CategoriesResponseBody()
@@ -18,4 +18,6 @@ public interface ResourceMapper {
   }
 
   List<CategoryResource> toResourceList(List<Category> categories);
+
+  CategoryResource toResource(Category category);
 }

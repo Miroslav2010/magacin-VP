@@ -11,16 +11,21 @@ tags:
     description: User authentication
   - name: category
     description: Item categorization
+  - name: warehouse
+    description: Warehouse controls
+  - name: manufacturer
+    description: Manufacturer controls
+
 paths:
   /api/login:
     post:
       tags:
         - authentication
-      summary: Login user
-      description: Authenticate user from username and password
+      summary: Login user.
+      description: Authenticate user from username and password.
       operationId: login
       requestBody:
-        description: Authenticate user from username and password
+        description: Authenticate user from username and password.
         content:
           application/json:
             schema:
@@ -28,25 +33,189 @@ paths:
         required: true
       responses:
         201:
-          description: User successfully authenticated
+          description: User successfully authenticated.
+
   /api/category:
     get:
       tags:
         - category
-      summary: Get all categories
-      description: List all categories that exist on the system
+      summary: Get all categories.
+      description: List all categories that exist on the system.
       operationId: getCategories
       responses:
         200:
-          description: List of all existing categories on the system
+          description: List of all existing categories on the system.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/CategoriesResponseBody'
+    post:
+      tags:
+        - category
+      summary: Create a new category.
+      operationId: createCategory
+      requestBody:
+        description: Request body that includes the name of the manufacturer to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCategoryRequestBody'
+      responses:
+        201:
+          description: The manufacturer was successfully created.
+  /api/category/{categoryId}:
+    parameters:
+      - name: categoryId
+        in: path
+        description: The unique id of the category.
+        required: true
+        schema:
+          type: integer
+          format: int64
+    get:
+      tags:
+        - category
+      summary: Get category by category id.
+      operationId: getCategoryById
+      responses:
+        200:
+          description: The requested category.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryResource'
+    delete:
+      tags:
+        - category
+      summary: Delete a category by using it's unique id.
+      operationId: deleteCategoryById
+      responses:
+        204:
+          description: The category was successfully deleted.
+
+  /api/manufacturer:
+    get:
+      tags:
+        - manufacturer
+      summary: Get all manufacturers.
+      description: List all manufacturers that exist on the system.
+      operationId: getManufacturers
+      responses:
+        200:
+          description: List of all existing manufacturers on the system.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManufacturerResponseBody'
+    post:
+      tags:
+        - manufacturer
+      summary: Create a new manufacturer.
+      operationId: createManufacturer
+      requestBody:
+        description: Request body that includes the name of the manufacturer to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateManufacturerRequestBody'
+      responses:
+        201:
+          description: The category was successfully created.
+  /api/manufacturer/{manufacturerId}:
+    parameters:
+      - name: manufacturerId
+        in: path
+        description: The unique id of the manufacturer.
+        required: true
+        schema:
+          type: integer
+          format: int64
+    get:
+      tags:
+        - manufacturer
+      summary: Get category by manufacturer id.
+      operationId: getManufacturerById
+      responses:
+        200:
+          description: The requested manufacturer.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManufacturerResource'
+    delete:
+      tags:
+        - manufacturer
+      summary: Delete a manufacturer by using it's unique id.
+      operationId: deleteManufacturerById
+      responses:
+        204:
+          description: The manufacturer was successfully deleted.
+
+  /api/warehouse:
+    get:
+      tags:
+        - warehouse
+      summary: Get all warehouses.
+      description: List all warehouses that exist on the system.
+      operationId: getWarehouses
+      responses:
+        200:
+          description: List of all existing warehouses on the system.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WarehousesResponseBody'
+    post:
+      tags:
+        - warehouse
+      summary: Create a new warehouse.
+      operationId: createWarehouse
+      requestBody:
+        description: Request body of the warehouse to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWarehouseRequestBody'
+      responses:
+        201:
+          description: The warehouse was successfully created.
+  /api/warehouse/{warehouseId}:
+    parameters:
+      - name: warehouseId
+        in: path
+        description: The unique id of the warehouse.
+        required: true
+        schema:
+          type: integer
+          format: int64
+    get:
+      tags:
+        - warehouse
+      summary: Get warehouse by warehouse id.
+      operationId: getWarehouseById
+      responses:
+        200:
+          description: The requested warehouse.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WarehouseResource'
+    delete:
+      tags:
+        - warehouse
+      summary: Delete a warehouse by using it's unique id.
+      operationId: deleteWarehouseById
+      responses:
+        204:
+          description: The warehouse was successfully deleted.
+
 components:
   schemas:
     LoginRequestBody:
       type: object
+      required:
+        - username
+        - password
       properties:
         username:
           type: string
@@ -56,18 +225,105 @@ components:
           description: The password entered by the user
     CategoryResource:
       type: object
+      required:
+        - id
+        - name
       properties:
         id:
-          type: number
-          format: long
+          type: integer
+          format: int64
           description: Unique identifier for the category
         name:
           type: string
           description: Used for displaying the category
+    CreateCategoryRequestBody:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: The name of the category to be created.
     CategoriesResponseBody:
       type: object
+      required:
+        - categories
       properties:
         categories:
           type: array
           items:
             $ref: '#/components/schemas/CategoryResource'
+
+    WarehouseResource:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier for the warehouse.
+        name:
+          type: string
+          description: Used for displaying the warehouse.
+        latitude:
+          type: number
+          description: The latitude of the location of the warehouse. Used for displaying the warehouse on a map
+        longitude:
+          type: number
+          description: The longitude of the location of the warehouse. Used for displaying the warehouse on a map
+    WarehousesResponseBody:
+      type: object
+      required:
+        - warehouses
+      properties:
+        warehouses:
+          type: array
+          items:
+            $ref: '#/components/schemas/WarehouseResource'
+    CreateWarehouseRequestBody:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: The name of the warehouse to be created.
+        latitude:
+          type: number
+          description: The latitude of the location of the warehouse.
+        longitude:
+          type: number
+          description: The longitude of the location of the warehouse.
+
+    ManufacturerResource:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique identifier for the manufacturer.
+        name:
+          type: string
+          description: Used for displaying the manufacturer.
+    ManufacturerResponseBody:
+      type: object
+      required:
+        - manufacturers
+      properties:
+        manufacturers:
+          type: array
+          items:
+            $ref: '#/components/schemas/ManufacturerResource'
+    CreateManufacturerRequestBody:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: The name of the manufacturer to be created.

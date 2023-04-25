@@ -1,14 +1,16 @@
 package mk.ukim.finki.wp.magacin.models;
 
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
+@Getter
 @Entity
-@Data
 @NoArgsConstructor
 public class Warehouse {
 
@@ -18,14 +20,15 @@ public class Warehouse {
 
   private String name;
 
-  private double lat;
+  private BigDecimal lat;
 
-  private double lon;
+  private BigDecimal lon;
 
   @OneToMany(mappedBy = "warehouse")
   private List<WarehouseItem> warehouseItems;
 
-  public Warehouse(String name, double lat, double lon) {
+  @Builder
+  public Warehouse(String name, BigDecimal lat, BigDecimal lon) {
     this.name = name;
     this.lat = lat;
     this.lon = lon;

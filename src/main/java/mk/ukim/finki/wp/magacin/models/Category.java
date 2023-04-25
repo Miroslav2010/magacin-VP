@@ -1,13 +1,15 @@
 package mk.ukim.finki.wp.magacin.models;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
-@Data
+@Getter
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor
 public class Category {
   @Id
