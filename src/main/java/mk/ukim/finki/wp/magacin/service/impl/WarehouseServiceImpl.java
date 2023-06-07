@@ -20,17 +20,17 @@ public class WarehouseServiceImpl implements WarehouseService {
   private final WarehouseItemRepository warehouseItemRepository;
 
   @Override
-  public List<Warehouse> listAll() {
+  public List<Warehouse> listAllWarehouses() {
     return this.warehouseRepository.findAll();
   }
 
   @Override
-  public Warehouse findById(Long id) {
+  public Warehouse findWarehouseById(Long id) {
     return this.warehouseRepository.findById(id).orElseThrow();
   }
 
   @Override
-  public void create(CreateWarehouseCommand command) {
+  public void createWarehouse(CreateWarehouseCommand command) {
     this.warehouseRepository.save(Warehouse.builder()
         .name(command.getName())
         .lat(command.getLatitude())
@@ -39,7 +39,7 @@ public class WarehouseServiceImpl implements WarehouseService {
   }
 
   @Override
-  public void delete(Long id) {
+  public void deleteWarehouse(Long id) {
     Warehouse warehouse = this.warehouseRepository.findById(id).orElseThrow();
 
     // delete all item in warehouse entries before deleting the warehouse itself

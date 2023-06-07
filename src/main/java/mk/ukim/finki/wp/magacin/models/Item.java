@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +21,7 @@ public class Item {
 
   private String description;
 
-  private String imageUrl;
-
-  private double price;
+  private BigDecimal price;
 
   @OneToMany(mappedBy = "item")
   private List<WarehouseItem> warehouseItemList;
@@ -37,13 +36,11 @@ public class Item {
   public Item(
     String name,
     String description,
-    String imageUrl,
-    Double price,
+    BigDecimal price,
     Category category,
     Manufacturer manufacturer) {
     this.name = name;
     this.description = description;
-    this.imageUrl = imageUrl;
     this.price = price;
     this.warehouseItemList = new ArrayList<>();
     this.category = category;

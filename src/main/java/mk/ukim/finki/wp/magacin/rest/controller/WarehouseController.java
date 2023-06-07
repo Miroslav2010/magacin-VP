@@ -22,23 +22,23 @@ public class WarehouseController implements WarehouseApi {
 
   @Override
   public ResponseEntity<Void> createWarehouse(CreateWarehouseRequestBody createWarehouseRequestBody) {
-    warehouseService.create(warehouseCommandMapper.toCommand(createWarehouseRequestBody));
+    warehouseService.createWarehouse(warehouseCommandMapper.toCommand(createWarehouseRequestBody));
     return new ResponseEntity<>(HttpStatus.CREATED);
   }
 
   @Override
   public ResponseEntity<Void> deleteWarehouseById(Long warehouseId) {
-    warehouseService.delete(warehouseId);
+    warehouseService.deleteWarehouse(warehouseId);
     return ResponseEntity.noContent().build();
   }
 
   @Override
   public ResponseEntity<WarehouseResource> getWarehouseById(Long warehouseId) {
-    return ResponseEntity.ok(warehouseResourceMapper.toResource(warehouseService.findById(warehouseId)));
+    return ResponseEntity.ok(warehouseResourceMapper.toResource(warehouseService.findWarehouseById(warehouseId)));
   }
 
   @Override
   public ResponseEntity<WarehousesResponseBody> getWarehouses() {
-    return ResponseEntity.ok(warehouseResourceMapper.toResource(warehouseService.listAll()));
+    return ResponseEntity.ok(warehouseResourceMapper.toResource(warehouseService.listAllWarehouses()));
   }
 }

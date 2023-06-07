@@ -121,6 +121,9 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
+                            <typeMappings>
+                                <typeMapping>Double=java.math.BigDecimal</typeMapping>
+                            </typeMappings>
                             <inputSpec>
                                 ${project.basedir}/src/main/resources/api-specification.yaml
                             </inputSpec>

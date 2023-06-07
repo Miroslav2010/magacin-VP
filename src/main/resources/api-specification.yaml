@@ -15,6 +15,8 @@ tags:
     description: Warehouse controls
   - name: manufacturer
     description: Manufacturer controls
+  - name: item
+    description: Item controls
 
 paths:
   /api/login:
@@ -35,7 +37,7 @@ paths:
         201:
           description: User successfully authenticated.
 
-  /api/category:
+  /api/categories:
     get:
       tags:
         - category
@@ -63,7 +65,7 @@ paths:
       responses:
         201:
           description: The manufacturer was successfully created.
-  /api/category/{categoryId}:
+  /api/categories/{categoryId}:
     parameters:
       - name: categoryId
         in: path
@@ -93,7 +95,7 @@ paths:
         204:
           description: The category was successfully deleted.
 
-  /api/manufacturer:
+  /api/manufacturers:
     get:
       tags:
         - manufacturer
@@ -121,7 +123,7 @@ paths:
       responses:
         201:
           description: The category was successfully created.
-  /api/manufacturer/{manufacturerId}:
+  /api/manufacturers/{manufacturerId}:
     parameters:
       - name: manufacturerId
         in: path
@@ -151,7 +153,7 @@ paths:
         204:
           description: The manufacturer was successfully deleted.
 
-  /api/warehouse:
+  /api/warehouses:
     get:
       tags:
         - warehouse
@@ -179,7 +181,7 @@ paths:
       responses:
         201:
           description: The warehouse was successfully created.
-  /api/warehouse/{warehouseId}:
+  /api/warehouses/{warehouseId}:
     parameters:
       - name: warehouseId
         in: path
@@ -208,6 +210,123 @@ paths:
       responses:
         204:
           description: The warehouse was successfully deleted.
+  /api/items:
+    get:
+      parameters:
+        - name: categoryId
+          in: query
+          description: Filter by category.
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: manufacturerId
+          in: query
+          description: Filter by manufacturer.
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: availability
+          in: query
+          description: Filter by availability.
+          required: false
+          schema:
+            type: boolean
+      tags:
+        - item
+      summary: Get list of all available items on the system.
+      description: | 
+        Get list of all available items on the system. 
+        The items can be filtered by their category, manufacturer and availability.
+      operationId: getItems
+      responses:
+        200:
+          description: All available items on the system.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemsResponseBody'
+    post:
+      tags:
+        - item
+      summary: Create new item in the system.
+      description: Create new item in the system.
+      operationId: createItem
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateItemRequestBody'
+      responses:
+        201:
+          description: The item was successfully created.
+    put:
+      tags:
+        - item
+      summary: Update an item in the system.
+      description: Update item in the system.
+      operationId: updateItem
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateItemRequestBody'
+      responses:
+        201:
+          description: The item was successfully updated.
+  /api/items/{itemId}:
+    parameters:
+      - name: itemId
+        in: path
+        description: The unique identifier of the requested item.
+        required: true
+        schema:
+          type: integer
+          format: int64
+    get:
+      tags:
+        - item
+      summary: Get item by its unique identifier.
+      description: Get one single item by its unique identifier.
+      operationId: getItem
+      responses:
+        200:
+          description: Requested item.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemResource'
+    delete:
+      tags:
+        - item
+      summary: Delete an item by its unique identifier.
+      description: Delete an item by its unique identifier.
+      operationId: deleteItem
+      responses:
+        204:
+          description: The item was successfully deleted.
+  /api/items/search:
+    parameters:
+      - name: query
+        in: query
+        description: The search query.
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - item
+      summary: Search items by their name.
+      description: Search through all items on their system by their name.
+      operationId: searchItems
+      responses:
+        200:
+          description: Collection of all items that match the search query.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemsResponseBody'
 
 components:
   schemas:
@@ -327,3 +446,92 @@ components:
         name:
           type: string
           description: The name of the manufacturer to be created.
+    ItemResource:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - price
+        - available
+        - availability
+        - quantity
+        - category
+        - manufacturer
+      properties:
+        id:
+          type: number
+          description: Unique identifier for the item.
+          format: int64
+        name:
+          type: string
+          description: The name of the item.
+        description:
+          type: string
+          description: The description for the item.
+        price:
+          type: number
+          format: double
+          description: The price of the item.
+        available:
+          type: boolean
+          description: Whether the item is available and in stock.
+        quantity:
+          type: number
+          format: int32
+          description: Total quantity of the item in all warehouses.
+        category:
+          $ref: '#/components/schemas/CategoryResource'
+        manufacturer:
+          $ref: '#/components/schemas/ManufacturerResource'
+        availableInWarehouses:
+          type: array
+          description: List of warehouses where the item is available in.
+          items:
+            $ref: '#/components/schemas/WarehouseResource'
+    ItemsResponseBody:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemResource'
+    CreateItemRequestBody:
+      type: object
+      required:
+        - name
+        - description
+        - price
+        - categoryId
+        - manufacturerId
+      properties:
+        name:
+          type: string
+          description: The name of the item.
+        description:
+          type: string
+          description: The description for the item.
+        price:
+          type: number
+          format: double
+          description: The price of the item.
+        categoryId:
+          type: integer
+          format: int64
+          description: The unique identifier of the category of the item.
+        manufacturerId:
+          type: integer
+          format: int64
+          description: The unique identifier of the manufacturer of the item.
+    UpdateItemRequestBody:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/CreateItemRequestBody'
+        - type: object
+          properties:
+            id:
+              type: integer
+              format: int64
+              description: The id of the item to be updated.

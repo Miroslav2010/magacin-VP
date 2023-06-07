@@ -8,8 +8,8 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 public interface WarehouseService {
-  List<Warehouse> listAll();
-  Warehouse findById(@NotNull Long id);
-  void create(@Valid CreateWarehouseCommand command);
-  void delete(@NotNull Long id);
+  List<Warehouse> listAllWarehouses();
+  Warehouse findWarehouseById(@NotNull Long id);
+  void createWarehouse(@Valid @NotNull CreateWarehouseCommand command);
+  void deleteWarehouse(@NotNull Long id);
 }
