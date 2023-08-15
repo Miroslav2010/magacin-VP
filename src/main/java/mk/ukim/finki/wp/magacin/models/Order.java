@@ -1,11 +1,11 @@
 package mk.ukim.finki.wp.magacin.models;
 
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import mk.ukim.finki.wp.magacin.models.enumerations.OrderStatus;
 
-import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;

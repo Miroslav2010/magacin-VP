@@ -1,0 +1,22 @@
+spring:
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  profiles:
+    active: dev
+
+springdoc:
+  api-docs:
+    groups:
+      enabled: true
+  swagger-ui:
+    path: /swagger-ui
+    display-request-duration: true
+    groups-order: DESC
+    operationsSorter: alpha
+    disable-swagger-default-url: true
+    tags-sorter: alpha
+    display-operation-id: true
+    doc-expansion: none
+  show-actuator: false
